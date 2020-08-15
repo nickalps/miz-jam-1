@@ -5,11 +5,177 @@
 	"runtime": "c3",
 	"useWorker": "auto",
 	"bundleAddons": false,
-	"usedAddons": [],
-	"uniqueId": "o3z4kfhyung",
+	"usedAddons": [
+		{
+			"type": "plugin",
+			"id": "Arr",
+			"name": "Array",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "TextBox",
+			"name": "Text input",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Text",
+			"name": "Text",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Sprite",
+			"name": "Sprite",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "AJAX",
+			"name": "AJAX",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Keyboard",
+			"name": "Keyboard",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Touch",
+			"name": "Touch",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "Browser",
+			"name": "Browser",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		},
+		{
+			"type": "plugin",
+			"id": "TiledBg",
+			"name": "Tiled Background",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "MoveTo",
+			"name": "Move To",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Sin",
+			"name": "Sine",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		},
+		{
+			"type": "behavior",
+			"id": "Fade",
+			"name": "Fade",
+			"author": "Scirra",
+			"version": "r210.2",
+			"bundled": false
+		}
+	],
+	"uniqueId": "ufuu6mnbboc",
 	"objectTypes": {
-		"items": [],
-		"subfolders": []
+		"items": [
+			"sPlayer",
+			"sEnemy",
+			"txtPlayerHP",
+			"txtEnemyHP",
+			"txtPlayerCoins",
+			"sSpellButton",
+			"sStatic",
+			"sProgressBar"
+		],
+		"subfolders": [
+			{
+				"items": [
+					"arrLog",
+					"inputLog",
+					"txtFPS",
+					"sMap"
+				],
+				"subfolders": [],
+				"name": "_Debug"
+			},
+			{
+				"items": [
+					"arrChange",
+					"arrChangeSelection",
+					"sSelectorFirst",
+					"sSelectorSecond"
+				],
+				"subfolders": [],
+				"name": "Change"
+			},
+			{
+				"items": [
+					"arrMatchHorizontal",
+					"arrMatchVertical",
+					"arrMatchResult"
+				],
+				"subfolders": [],
+				"name": "Matches"
+			},
+			{
+				"items": [
+					"AJAX",
+					"Keyboard",
+					"Touch",
+					"Browser"
+				],
+				"subfolders": [],
+				"name": "Plugins"
+			},
+			{
+				"items": [
+					"arrFieldGenerationList",
+					"arrMainField",
+					"arrMovesMasks",
+					"sElement",
+					"tbGrid",
+					"sDestroy"
+				],
+				"subfolders": [],
+				"name": "Field"
+			},
+			{
+				"items": [
+					"sBottomBG",
+					"sFightBG"
+				],
+				"subfolders": [],
+				"name": "Backgrounds"
+			}
+		]
 	},
 	"autosaveData": null,
 	"containers": [],
@@ -19,19 +185,29 @@
 	},
 	"layouts": {
 		"items": [
-			"Layout 1"
+			"lGame"
 		],
 		"subfolders": []
 	},
 	"eventSheets": {
 		"items": [
-			"Event sheet 1"
+			"eMain",
+			"eDebug",
+			"ePlayerInput",
+			"eFieldGeneration",
+			"eFight"
 		],
 		"subfolders": []
 	},
 	"rootFileFolders": {
 		"script": {
-			"items": [],
+			"items": [
+				{
+					"name": "main.js",
+					"type": "application/javascript",
+					"sid": 170326113817622
+				}
+			],
 			"subfolders": []
 		},
 		"sound": {
@@ -55,39 +231,7 @@
 				{
 					"name": "icon-16.png",
 					"type": "image/png",
-					"sid": 257504340711984,
-					"icon-info": {
-						"purpose": "app-icon"
-					}
-				},
-				{
-					"name": "icon-32.png",
-					"type": "image/png",
-					"sid": 523435426194952,
-					"icon-info": {
-						"purpose": "app-icon"
-					}
-				},
-				{
-					"name": "icon-64.png",
-					"type": "image/png",
-					"sid": 361191828189330,
-					"icon-info": {
-						"purpose": "app-icon"
-					}
-				},
-				{
-					"name": "icon-128.png",
-					"type": "image/png",
-					"sid": 206422636854163,
-					"icon-info": {
-						"purpose": "app-icon"
-					}
-				},
-				{
-					"name": "icon-512.png",
-					"type": "image/png",
-					"sid": 183891194916344,
+					"sid": 918320826558388,
 					"icon-info": {
 						"purpose": "app-icon"
 					}
@@ -95,15 +239,47 @@
 				{
 					"name": "loading-logo.png",
 					"type": "image/png",
-					"sid": 790894322343291,
+					"sid": 618475460614850,
 					"icon-info": {
 						"purpose": "loading-logo"
 					}
 				},
 				{
+					"name": "icon-32.png",
+					"type": "image/png",
+					"sid": 601613405039820,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-128.png",
+					"type": "image/png",
+					"sid": 828278496215170,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-64.png",
+					"type": "image/png",
+					"sid": 439645190198358,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
+					"name": "icon-512.png",
+					"type": "image/png",
+					"sid": 484122837422990,
+					"icon-info": {
+						"purpose": "app-icon"
+					}
+				},
+				{
 					"name": "icon-256.png",
 					"type": "image/png",
-					"sid": 867642656806580,
+					"sid": 316008239970204,
 					"icon-info": {
 						"purpose": "app-icon"
 					}
@@ -112,7 +288,18 @@
 			"subfolders": []
 		},
 		"general": {
-			"items": [],
+			"items": [
+				{
+					"name": "arrMovesMasks.json",
+					"type": "application/json",
+					"sid": 846306381546397
+				},
+				{
+					"name": "arrFieldGenerationList.json",
+					"type": "application/json",
+					"sid": 563205920908317
+				}
+			],
 			"subfolders": []
 		}
 	},
@@ -126,13 +313,13 @@
 		]
 	},
 	"properties": {
-		"description": "",
-		"version": "1.0.0.0",
-		"author": "",
-		"authorEmail": "",
-		"authorWebsite": "",
-		"appId": "",
-		"pixelRounding": false,
+		"description": "Game for Miz Jam, see more at https://itch.io/jam/miz-jam-1",
+		"version": "0.0.0.1",
+		"author": "NickWind",
+		"authorEmail": "nick.alps@gmail.com",
+		"authorWebsite": "https://games.nickwind.ru/",
+		"appId": "com.nickwindgames.nickwind.miz-jam-1",
+		"pixelRounding": true,
 		"useLoaderLayout": false,
 		"fullscreenMode": "letterbox-scale",
 		"fullscreenQuality": "high",
@@ -162,14 +349,14 @@
 		"gpuPreference": "high-performance",
 		"framerateMode": "vsync",
 		"compositingMode": "standard",
-		"sampling": "trilinear",
+		"sampling": "nearest",
 		"downscaling": "medium",
 		"maxSpriteSheetSize": 2048,
-		"loaderStyle": "splash",
+		"loaderStyle": "percent",
 		"preloadSounds": true,
 		"clearBackground": true,
 		"enhancedAccelerationPrecision": true,
-		"cordovaiOSScheme": "app"
+		"cordovaiOSScheme": "file"
 	},
 	"viewportWidth": 1080,
 	"viewportHeight": 1920,

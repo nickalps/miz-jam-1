@@ -1,0 +1,188 @@
+{
+	"name": "eDebug",
+	"events": [
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "log",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-created",
+							"objectClass": "inputLog",
+							"sid": 846448766588544
+						}
+					],
+					"actions": [
+						{
+							"id": "set-css-style",
+							"objectClass": "inputLog",
+							"sid": 457171568453643,
+							"parameters": {
+								"property-name": "\"font-size\"",
+								"value": "\"10px\""
+							}
+						}
+					],
+					"sid": 668466753420510
+				},
+				{
+					"functionName": "log",
+					"functionDescription": "",
+					"functionCategory": "debug",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "string",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"sid": 947071202309839
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "log",
+							"objectClass": "Browser",
+							"sid": 835511642032622,
+							"parameters": {
+								"type": "log",
+								"message": "\"FPS: \"&fps"
+							}
+						},
+						{
+							"id": "push",
+							"objectClass": "arrLog",
+							"sid": 344824091452768,
+							"parameters": {
+								"where": "back",
+								"value": "string",
+								"axis": "x"
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "inputLog",
+							"sid": 892407330482157,
+							"parameters": {
+								"text": "\"\""
+							}
+						},
+						{
+							"id": "log",
+							"objectClass": "Browser",
+							"sid": 231568739259107,
+							"parameters": {
+								"type": "log",
+								"message": "string"
+							}
+						}
+					],
+					"sid": 214225314140914,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each-element",
+									"objectClass": "arrLog",
+									"sid": 208917814302687,
+									"parameters": {
+										"axes": "x"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-text",
+									"objectClass": "inputLog",
+									"sid": 559016788842535,
+									"parameters": {
+										"text": "Self.Text & newline & arrLog.CurX & \") \"& arrLog.CurValue"
+									}
+								},
+								{
+									"id": "scroll-to-bottom",
+									"objectClass": "inputLog",
+									"sid": 327493687385697
+								}
+							],
+							"sid": 487124189206109
+						}
+					]
+				}
+			],
+			"sid": 640162701209902
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "every-tick",
+					"objectClass": "System",
+					"sid": 986575287549027
+				}
+			],
+			"actions": [
+				{
+					"id": "set-text",
+					"objectClass": "txtFPS",
+					"sid": 663770848167342,
+					"parameters": {
+						"text": "fps"
+					}
+				}
+			],
+			"sid": 333640741921898
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-key-pressed",
+					"objectClass": "Keyboard",
+					"sid": 464723142449546,
+					"parameters": {
+						"key": 116
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "restart-layout",
+					"objectClass": "System",
+					"sid": 939631697618860
+				}
+			],
+			"sid": 916057263210659
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-key-pressed",
+					"objectClass": "Keyboard",
+					"sid": 533796680672115,
+					"parameters": {
+						"key": 85
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "respawnField",
+					"sid": 651014430612192
+				}
+			],
+			"sid": 562738229173632
+		}
+	],
+	"sid": 201502212275732
+}

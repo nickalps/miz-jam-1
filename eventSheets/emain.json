@@ -1,0 +1,3356 @@
+{
+	"name": "eMain",
+	"events": [
+		{
+			"eventType": "include",
+			"includeSheet": "eDebug"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "ePlayerInput"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eFieldGeneration"
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "eFight"
+		},
+		{
+			"eventType": "variable",
+			"name": "gameState",
+			"type": "string",
+			"initialValue": "start",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 489000513511950
+		},
+		{
+			"eventType": "variable",
+			"name": "touchState",
+			"type": "string",
+			"initialValue": "none",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 988606221684650
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "State change functions",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "setGameState",
+					"functionDescription": "",
+					"functionCategory": "gameState",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "newGameState",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"sid": 603022580264717
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "log",
+							"sid": 508867662143551,
+							"parameters": [
+								"\"new game state: \" & newGameState"
+							]
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 507926270359504,
+							"parameters": {
+								"variable": "gameState",
+								"value": "newGameState"
+							}
+						}
+					],
+					"sid": 582278960280727
+				},
+				{
+					"functionName": "setTouchState",
+					"functionDescription": "",
+					"functionCategory": "touchState",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "newTouchState",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"sid": 819417598519565
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "log",
+							"sid": 568780233007892,
+							"parameters": [
+								"\"new touch state: \" & newTouchState"
+							]
+						},
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 827021256146087,
+							"parameters": {
+								"variable": "touchState",
+								"value": "newTouchState"
+							}
+						}
+					],
+					"sid": 981487250642684
+				}
+			],
+			"sid": 763329592281462
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Init",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "Moves masks loading",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-start-of-layout",
+									"objectClass": "System",
+									"sid": 197143778992887
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "setGameState",
+									"sid": 619944594705624,
+									"parameters": [
+										"\"init\""
+									]
+								},
+								{
+									"callFunction": "log",
+									"sid": 838276990841932,
+									"parameters": [
+										"\"Загрузка arrMovesMasks.json\""
+									]
+								},
+								{
+									"id": "request-project-file",
+									"objectClass": "AJAX",
+									"sid": 355100597329951,
+									"parameters": {
+										"tag": "\"arrMovesMasks\"",
+										"file": "arrMovesMasks.json"
+									}
+								}
+							],
+							"sid": 603270902094360
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-completed",
+									"objectClass": "AJAX",
+									"sid": 572257732700997,
+									"parameters": {
+										"tag": "\"arrMovesMasks\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "load",
+									"objectClass": "arrMovesMasks",
+									"sid": 504847400687677,
+									"parameters": {
+										"json": "AJAX.LastData"
+									}
+								},
+								{
+									"callFunction": "log",
+									"sid": 820080386184843,
+									"parameters": [
+										"\"arrMovesMasks инициализован\""
+									]
+								},
+								{
+									"type": "comment",
+									"text": "Следом заружаем arrFieldGenerationList"
+								},
+								{
+									"callFunction": "log",
+									"sid": 571048296357417,
+									"parameters": [
+										"\"Загрузка arrFieldGenerationList\""
+									]
+								},
+								{
+									"id": "request-project-file",
+									"objectClass": "AJAX",
+									"sid": 950358001584147,
+									"parameters": {
+										"tag": "\"arrFieldGenerationList\"",
+										"file": "arrFieldGenerationList.json"
+									}
+								}
+							],
+							"sid": 633592300623563
+						}
+					],
+					"sid": 919308642569643
+				},
+				{
+					"eventType": "group",
+					"disabled": false,
+					"title": "Element list loading",
+					"description": "",
+					"isActiveOnStart": true,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "on-completed",
+									"objectClass": "AJAX",
+									"sid": 713559582216459,
+									"parameters": {
+										"tag": "\"arrFieldGenerationList\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "load",
+									"objectClass": "arrFieldGenerationList",
+									"sid": 214726058145078,
+									"parameters": {
+										"json": "AJAX.LastData"
+									}
+								},
+								{
+									"callFunction": "log",
+									"sid": 890251563448028,
+									"parameters": [
+										"\"arrFieldGenerationList инициализован:\""
+									]
+								},
+								{
+									"callFunction": "log",
+									"sid": 608843229115953,
+									"parameters": [
+										"arrFieldGenerationList.AsJSON & newline & \"end of arrFieldGenerationList\""
+									]
+								},
+								{
+									"id": "signal",
+									"objectClass": "System",
+									"sid": 585602510035913,
+									"parameters": {
+										"tag": "\"loadingCompleted\""
+									}
+								}
+							],
+							"sid": 760497931663197
+						}
+					],
+					"sid": 209701093218296
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 738051234569956
+						}
+					],
+					"actions": [
+						{
+							"id": "wait-for-signal",
+							"objectClass": "System",
+							"sid": 951948079337943,
+							"parameters": {
+								"tag": "\"loadingCompleted\""
+							}
+						},
+						{
+							"callFunction": "generateNewFieldArray",
+							"sid": 735936531613996
+						},
+						{
+							"callFunction": "log",
+							"sid": 441574478001419,
+							"parameters": [
+								"\"Layout стартовал\""
+							]
+						},
+						{
+							"callFunction": "respawnField",
+							"sid": 640488234821419
+						},
+						{
+							"callFunction": "matchAnalysis",
+							"sid": 991973180481268
+						}
+					],
+					"sid": 855031428258601,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 763628962886346,
+									"parameters": {
+										"first-value": "Functions.movesAvailable",
+										"comparison": 0,
+										"second-value": "1"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 663420027274702
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 700622307176371
+								}
+							],
+							"actions": [],
+							"sid": 613935090311713
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-in-preview",
+									"objectClass": "System",
+									"sid": 714685787031565,
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "destroy",
+									"objectClass": "inputLog",
+									"sid": 792266051467509
+								}
+							],
+							"sid": 644437678459993
+						}
+					]
+				}
+			],
+			"sid": 397770810747914
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-created",
+					"objectClass": "sElement",
+					"sid": 541885348379116
+				}
+			],
+			"actions": [
+				{
+					"id": "move-to-bottom",
+					"objectClass": "sElement",
+					"sid": 259394221487821
+				}
+			],
+			"sid": 274448340750119
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Matches",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "destroyElementsFromMatches",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 407601609047835,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each-element",
+									"objectClass": "arrMainField",
+									"sid": 699741631654988,
+									"parameters": {
+										"axes": "xy"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 514957232047492,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-at-xy",
+											"objectClass": "arrMatchHorizontal",
+											"sid": 126315630536724,
+											"parameters": {
+												"x": "arrMainField.CurX",
+												"y": "arrMainField.CurY",
+												"comparison": 4,
+												"value": "2"
+											}
+										},
+										{
+											"id": "compare-at-xy",
+											"objectClass": "arrMatchVertical",
+											"sid": 238615059704523,
+											"parameters": {
+												"x": "arrMainField.CurX",
+												"y": "arrMainField.CurY",
+												"comparison": 4,
+												"value": "2"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 868714339810956,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "pick-by-unique-id",
+													"objectClass": "sElement",
+													"sid": 892620860389226,
+													"parameters": {
+														"unique-id": "arrMainField.At(arrMainField.CurX,arrMainField.CurY, 1)"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "destroy",
+													"objectClass": "sElement",
+													"sid": 880227776122179
+												}
+											],
+											"sid": 905315476259198
+										}
+									],
+									"isOrBlock": true
+								}
+							]
+						}
+					]
+				},
+				{
+					"functionName": "matchAnalysis",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "setGameState",
+							"sid": 454248395909675,
+							"parameters": [
+								"\"matchesAnalysis\""
+							]
+						},
+						{
+							"id": "clear",
+							"objectClass": "arrMatchHorizontal",
+							"sid": 132001920345154,
+							"parameters": {
+								"value": "0"
+							}
+						},
+						{
+							"id": "clear",
+							"objectClass": "arrMatchVertical",
+							"sid": 623954079661673,
+							"parameters": {
+								"value": "0"
+							}
+						}
+					],
+					"sid": 454286649882330,
+					"children": [
+						{
+							"eventType": "comment",
+							"text": "Анализирую каждую линию индивидуально"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 332382121315195,
+									"parameters": {
+										"name": "\"line\"",
+										"start-index": "0",
+										"end-index": "arrMainField.Height-1"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 415792093354285,
+							"children": [
+								{
+									"eventType": "variable",
+									"name": "matchLenght",
+									"type": "number",
+									"initialValue": "0",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 804721419572572
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 807889008168593,
+											"parameters": {
+												"name": "\"column\"",
+												"start-index": "0",
+												"end-index": "arrMainField.Width-1"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 306044881854498,
+									"children": [
+										{
+											"eventType": "comment",
+											"text": "Если предыдущий элемент в этой линии такой же"
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 462529964876303,
+													"parameters": {
+														"x": "loopindex(\"column\")",
+														"y": "loopindex(\"line\")",
+														"z": "0",
+														"comparison": 0,
+														"value": "arrMainField.At(loopindex(\"column\")-1, loopindex(\"line\"),0)"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "add-to-eventvar",
+													"objectClass": "System",
+													"sid": 104873206744639,
+													"parameters": {
+														"variable": "matchLenght",
+														"value": "1"
+													}
+												}
+											],
+											"sid": 681276562349862,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-eventvar",
+															"objectClass": "System",
+															"sid": 376179005776276,
+															"parameters": {
+																"variable": "matchLenght",
+																"comparison": 5,
+																"value": "3"
+															}
+														}
+													],
+													"actions": [],
+													"sid": 830800320319766,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "for-each-element",
+																	"objectClass": "arrMatchHorizontal",
+																	"sid": 183438730403567,
+																	"parameters": {
+																		"axes": "xy"
+																	}
+																}
+															],
+															"actions": [],
+															"sid": 857022286621816,
+															"children": [
+																{
+																	"eventType": "block",
+																	"conditions": [
+																		{
+																			"id": "compare-two-values",
+																			"objectClass": "System",
+																			"sid": 852602377085092,
+																			"parameters": {
+																				"first-value": "arrMatchHorizontal.CurY",
+																				"comparison": 0,
+																				"second-value": "loopindex(\"line\")"
+																			}
+																		}
+																	],
+																	"actions": [],
+																	"sid": 479510263643578,
+																	"children": [
+																		{
+																			"eventType": "block",
+																			"conditions": [
+																				{
+																					"id": "compare-two-values",
+																					"objectClass": "System",
+																					"sid": 161926296221113,
+																					"parameters": {
+																						"first-value": "arrMatchHorizontal.CurX",
+																						"comparison": 3,
+																						"second-value": "loopindex(\"column\")"
+																					}
+																				},
+																				{
+																					"id": "compare-two-values",
+																					"objectClass": "System",
+																					"sid": 302939026812824,
+																					"parameters": {
+																						"first-value": "arrMatchHorizontal.CurX",
+																						"comparison": 4,
+																						"second-value": "loopindex(\"column\")-matchLenght"
+																					}
+																				}
+																			],
+																			"actions": [
+																				{
+																					"id": "set-at-xy",
+																					"objectClass": "arrMatchHorizontal",
+																					"sid": 343657454814926,
+																					"parameters": {
+																						"x": "Self.CurX",
+																						"y": "Self.CurY",
+																						"value": "matchLenght"
+																					}
+																				}
+																			],
+																			"sid": 609991031611236
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 788525256707394
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 498536200566096,
+													"parameters": {
+														"variable": "matchLenght",
+														"value": "1"
+													}
+												}
+											],
+											"sid": 410617637263094
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 300976699232859,
+									"parameters": {
+										"name": "\"column\"",
+										"start-index": "0",
+										"end-index": "arrMainField.Width-1"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 813323664616312,
+							"children": [
+								{
+									"eventType": "variable",
+									"name": "matchLenght",
+									"type": "number",
+									"initialValue": "0",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 284532730496087
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 658059173900780,
+											"parameters": {
+												"name": "\"line\"",
+												"start-index": "0",
+												"end-index": "arrMainField.Height-1"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 265848223664017,
+									"children": [
+										{
+											"eventType": "comment",
+											"text": "Если предыдущий элемент в этой линии такой же"
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 243877334799932,
+													"parameters": {
+														"x": "loopindex(\"column\")",
+														"y": "loopindex(\"line\")",
+														"z": "0",
+														"comparison": 0,
+														"value": "arrMainField.At(loopindex(\"column\"), loopindex(\"line\")-1,0)"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "add-to-eventvar",
+													"objectClass": "System",
+													"sid": 613816888815454,
+													"parameters": {
+														"variable": "matchLenght",
+														"value": "1"
+													}
+												}
+											],
+											"sid": 340485368974455,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-eventvar",
+															"objectClass": "System",
+															"sid": 399100985711691,
+															"parameters": {
+																"variable": "matchLenght",
+																"comparison": 5,
+																"value": "3"
+															}
+														}
+													],
+													"actions": [],
+													"sid": 736483878335733,
+													"children": [
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "for-each-element",
+																	"objectClass": "arrMatchVertical",
+																	"sid": 504173936181404,
+																	"parameters": {
+																		"axes": "xy"
+																	}
+																}
+															],
+															"actions": [],
+															"sid": 767679553082793,
+															"children": [
+																{
+																	"eventType": "block",
+																	"conditions": [
+																		{
+																			"id": "compare-two-values",
+																			"objectClass": "System",
+																			"sid": 952635202418742,
+																			"parameters": {
+																				"first-value": "arrMatchVertical.CurX",
+																				"comparison": 0,
+																				"second-value": "loopindex(\"column\")"
+																			}
+																		}
+																	],
+																	"actions": [],
+																	"sid": 776034133642022,
+																	"children": [
+																		{
+																			"eventType": "block",
+																			"conditions": [
+																				{
+																					"id": "compare-two-values",
+																					"objectClass": "System",
+																					"sid": 935390559792253,
+																					"parameters": {
+																						"first-value": "arrMatchVertical.CurY",
+																						"comparison": 3,
+																						"second-value": "loopindex(\"line\")"
+																					}
+																				},
+																				{
+																					"id": "compare-two-values",
+																					"objectClass": "System",
+																					"sid": 530666131288957,
+																					"parameters": {
+																						"first-value": "arrMatchVertical.CurY",
+																						"comparison": 4,
+																						"second-value": "loopindex(\"line\")-matchLenght"
+																					}
+																				}
+																			],
+																			"actions": [
+																				{
+																					"id": "set-at-xy",
+																					"objectClass": "arrMatchVertical",
+																					"sid": 835104852907156,
+																					"parameters": {
+																						"x": "Self.CurX",
+																						"y": "Self.CurY",
+																						"value": "matchLenght"
+																					}
+																				}
+																			],
+																			"sid": 281161649628021
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 207380138360760
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 174876839438342,
+													"parameters": {
+														"variable": "matchLenght",
+														"value": "1"
+													}
+												}
+											],
+											"sid": 152578847684233
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"callFunction": "destroyElementAnimation",
+									"sid": 688254584748847
+								},
+								{
+									"callFunction": "destroyElementsFromMatches",
+									"sid": 594406802720467
+								},
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 252223423320204
+								}
+							],
+							"sid": 517720509926909
+						},
+						{
+							"eventType": "comment",
+							"text": "Удаляются все отмеченные элементы"
+						},
+						{
+							"eventType": "comment",
+							"text": "В массив arrMatchResult записывается количество заматченных объектов каждого типа,по порядку: Red, Green, Blue, Yellow, Purple"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each-element",
+									"objectClass": "arrMainField",
+									"sid": 470835443158618,
+									"parameters": {
+										"axes": "xy"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 876462076880627,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-at-xyz",
+											"objectClass": "arrMatchHorizontal",
+											"sid": 513708155387284,
+											"parameters": {
+												"x": "arrMainField.CurX",
+												"y": "arrMainField.CurY",
+												"z": "0",
+												"comparison": 5,
+												"value": "3"
+											}
+										},
+										{
+											"id": "compare-at-xyz",
+											"objectClass": "arrMatchVertical",
+											"sid": 539807887014100,
+											"parameters": {
+												"x": "arrMainField.CurX",
+												"y": "arrMainField.CurY",
+												"z": "0",
+												"comparison": 5,
+												"value": "3"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 667896001460772,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 372985769859681,
+													"parameters": {
+														"x": "arrMainField.CurX",
+														"y": "arrMainField.CurY",
+														"z": "0",
+														"comparison": 0,
+														"value": "\"Red\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-at-x",
+													"objectClass": "arrMatchResult",
+													"sid": 654947038325492,
+													"parameters": {
+														"x": "0",
+														"value": "Self.At(0)+1"
+													}
+												}
+											],
+											"sid": 300089465995535
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 895001186209639,
+													"parameters": {
+														"x": "arrMainField.CurX",
+														"y": "arrMainField.CurY",
+														"z": "0",
+														"comparison": 0,
+														"value": "\"Green\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-at-x",
+													"objectClass": "arrMatchResult",
+													"sid": 764671034276760,
+													"parameters": {
+														"x": "1",
+														"value": "Self.At(1)+1"
+													}
+												}
+											],
+											"sid": 543580735054996
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 727347504032949,
+													"parameters": {
+														"x": "arrMainField.CurX",
+														"y": "arrMainField.CurY",
+														"z": "0",
+														"comparison": 0,
+														"value": "\"Blue\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-at-x",
+													"objectClass": "arrMatchResult",
+													"sid": 353573673385250,
+													"parameters": {
+														"x": "2",
+														"value": "Self.At(2)+1"
+													}
+												}
+											],
+											"sid": 679370853336815
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 152405535188528,
+													"parameters": {
+														"x": "arrMainField.CurX",
+														"y": "arrMainField.CurY",
+														"z": "0",
+														"comparison": 0,
+														"value": "\"Yellow\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-at-x",
+													"objectClass": "arrMatchResult",
+													"sid": 605575577606523,
+													"parameters": {
+														"x": "3",
+														"value": "Self.At(3)+1"
+													}
+												}
+											],
+											"sid": 201185231392544
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 611407654786116,
+													"parameters": {
+														"x": "arrMainField.CurX",
+														"y": "arrMainField.CurY",
+														"z": "0",
+														"comparison": 0,
+														"value": "\"Purple\""
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-at-x",
+													"objectClass": "arrMatchResult",
+													"sid": 425732878728507,
+													"parameters": {
+														"x": "4",
+														"value": "Self.At(4)+1"
+													}
+												}
+											],
+											"sid": 502997325636511
+										},
+										{
+											"eventType": "block",
+											"conditions": [],
+											"actions": [
+												{
+													"id": "set-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 691430075228505,
+													"parameters": {
+														"x": "arrMainField.CurX",
+														"y": "arrMainField.CurY",
+														"z": "0",
+														"value": "\"none\""
+													}
+												},
+												{
+													"id": "set-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 197257128546454,
+													"parameters": {
+														"x": "arrMainField.CurX",
+														"y": "arrMainField.CurY",
+														"z": "1",
+														"value": "0"
+													}
+												}
+											],
+											"sid": 335384223029432
+										}
+									],
+									"isOrBlock": true
+								}
+							]
+						},
+						{
+							"eventType": "variable",
+							"name": "hasMatches",
+							"type": "boolean",
+							"initialValue": "false",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 364358914701390
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"type": "comment",
+									"text": "В этот момент можно посмотреть какие комбинации собрались"
+								},
+								{
+									"callFunction": "matchesReaction",
+									"sid": 943159122075270
+								},
+								{
+									"callFunction": "log",
+									"sid": 954313363734922,
+									"disabled": true,
+									"parameters": [
+										"\"🧧 Match result: \"&arrMatchResult.AsJSON"
+									]
+								}
+							],
+							"sid": 193045262591456,
+							"children": [
+								{
+									"eventType": "comment",
+									"text": "Логгирование комбинаций"
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for-each-element",
+											"objectClass": "arrMatchResult",
+											"sid": 646679161777333,
+											"parameters": {
+												"axes": "x"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 117347009142288,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-current-value",
+													"objectClass": "arrMatchResult",
+													"sid": 465464474366496,
+													"parameters": {
+														"comparison": 4,
+														"value": "0"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "set-boolean-eventvar",
+													"objectClass": "System",
+													"sid": 356639870614518,
+													"parameters": {
+														"variable": "hasMatches",
+														"value": "true"
+													}
+												}
+											],
+											"sid": 270771124470866
+										}
+									]
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"type": "comment",
+											"text": "Текущие матчи убираются"
+										},
+										{
+											"id": "clear",
+											"objectClass": "arrMatchResult",
+											"sid": 534943264436779,
+											"parameters": {
+												"value": "0"
+											}
+										}
+									],
+									"sid": 414451303341538
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-boolean-eventvar",
+									"objectClass": "System",
+									"sid": 690401580421107,
+									"parameters": {
+										"variable": "hasMatches"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "fallingElements",
+									"sid": 669417902032668
+								}
+							],
+							"sid": 898784490726837
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 175671665488133
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "setGameState",
+									"sid": 421180328601095,
+									"parameters": [
+										"\"ready\""
+									]
+								}
+							],
+							"sid": 138087282992989
+						}
+					]
+				}
+			],
+			"sid": 983087794803216
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Player moves",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"functionName": "playerChangeAnalysis",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "number",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "clear",
+							"objectClass": "arrMatchHorizontal",
+							"sid": 485889689473231,
+							"parameters": {
+								"value": "0"
+							}
+						},
+						{
+							"id": "clear",
+							"objectClass": "arrMatchVertical",
+							"sid": 562240210832377,
+							"parameters": {
+								"value": "0"
+							}
+						}
+					],
+					"sid": 701868620722518,
+					"children": [
+						{
+							"eventType": "comment",
+							"text": "Анализирую каждую линию индивидуально"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 533116557459222,
+									"parameters": {
+										"name": "\"line\"",
+										"start-index": "0",
+										"end-index": "arrMainField.Height-1"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 589204080945207,
+							"children": [
+								{
+									"eventType": "variable",
+									"name": "matchLenght",
+									"type": "number",
+									"initialValue": "0",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 805240438050933
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 607665029323063,
+											"parameters": {
+												"name": "\"column\"",
+												"start-index": "0",
+												"end-index": "arrMainField.Width-1"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 667355935705744,
+									"children": [
+										{
+											"eventType": "comment",
+											"text": "Если предыдущий элемент в этой линии такой же"
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xy",
+													"objectClass": "arrMainField",
+													"sid": 327655183945113,
+													"parameters": {
+														"x": "loopindex(\"column\")",
+														"y": "loopindex(\"line\")",
+														"comparison": 0,
+														"value": "arrMainField.At(loopindex(\"column\")-1, loopindex(\"line\"),0)"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "add-to-eventvar",
+													"objectClass": "System",
+													"sid": 135908994219746,
+													"parameters": {
+														"variable": "matchLenght",
+														"value": "1"
+													}
+												}
+											],
+											"sid": 795526822756846,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-eventvar",
+															"objectClass": "System",
+															"sid": 368125172036066,
+															"parameters": {
+																"variable": "matchLenght",
+																"comparison": 5,
+																"value": "3"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "set-function-return-value",
+															"objectClass": "Functions",
+															"sid": 849693845310239,
+															"parameters": {
+																"value": "1"
+															}
+														}
+													],
+													"sid": 607408646088349
+												}
+											]
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 973200794985445
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 879879413963943,
+													"parameters": {
+														"variable": "matchLenght",
+														"value": "1"
+													}
+												}
+											],
+											"sid": 141712988512769
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 173987767653648,
+									"parameters": {
+										"name": "\"column\"",
+										"start-index": "0",
+										"end-index": "arrMainField.Width-1"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 880920442448602,
+							"children": [
+								{
+									"eventType": "variable",
+									"name": "matchLenght",
+									"type": "number",
+									"initialValue": "0",
+									"comment": "",
+									"isStatic": false,
+									"isConstant": false,
+									"sid": 376001436060679
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 308395051566873,
+											"parameters": {
+												"name": "\"line\"",
+												"start-index": "0",
+												"end-index": "arrMainField.Height-1"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 730307565008144,
+									"children": [
+										{
+											"eventType": "comment",
+											"text": "Если предыдущий элемент в этой линии такой же"
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 726076500430381,
+													"parameters": {
+														"x": "loopindex(\"column\")",
+														"y": "loopindex(\"line\")",
+														"z": "0",
+														"comparison": 0,
+														"value": "arrMainField.At(loopindex(\"column\"), loopindex(\"line\")-1)"
+													}
+												}
+											],
+											"actions": [
+												{
+													"id": "add-to-eventvar",
+													"objectClass": "System",
+													"sid": 239276836776179,
+													"parameters": {
+														"variable": "matchLenght",
+														"value": "1"
+													}
+												}
+											],
+											"sid": 834336788260617,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-eventvar",
+															"objectClass": "System",
+															"sid": 316021962646587,
+															"parameters": {
+																"variable": "matchLenght",
+																"comparison": 5,
+																"value": "3"
+															}
+														}
+													],
+													"actions": [
+														{
+															"id": "set-function-return-value",
+															"objectClass": "Functions",
+															"sid": 944369448979702,
+															"parameters": {
+																"value": "1"
+															}
+														}
+													],
+													"sid": 603310302708240
+												}
+											]
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 785346456208714
+												}
+											],
+											"actions": [
+												{
+													"id": "set-eventvar-value",
+													"objectClass": "System",
+													"sid": 171117446562618,
+													"parameters": {
+														"variable": "matchLenght",
+														"value": "1"
+													}
+												}
+											],
+											"sid": 335250686475187
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 975157036520738
+								},
+								{
+									"id": "set-function-return-value",
+									"objectClass": "Functions",
+									"sid": 433608248551977,
+									"parameters": {
+										"value": "0"
+									}
+								}
+							],
+							"sid": 688362071533986
+						}
+					]
+				},
+				{
+					"functionName": "moveElementsAtLayout",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [
+						{
+							"name": "FirstUID",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"sid": 443750752052235
+						},
+						{
+							"name": "SecondUID",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"sid": 547973741965169
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "everyTurnEvent",
+							"sid": 413639062701985
+						}
+					],
+					"sid": 816309541319004,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "firstX",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 526835250747797
+						},
+						{
+							"eventType": "variable",
+							"name": "firstY",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 281894759689307
+						},
+						{
+							"eventType": "variable",
+							"name": "secondX",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 591529431528414
+						},
+						{
+							"eventType": "variable",
+							"name": "secondY",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 315606756104067
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-unique-id",
+									"objectClass": "sElement",
+									"sid": 851786805584365,
+									"parameters": {
+										"unique-id": "FirstUID"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 639820259377613,
+									"parameters": {
+										"variable": "firstX",
+										"value": "sElement.X"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 981083182244724,
+									"parameters": {
+										"variable": "firstY",
+										"value": "sElement.Y"
+									}
+								}
+							],
+							"sid": 709780486280572
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-unique-id",
+									"objectClass": "sElement",
+									"sid": 512645908205995,
+									"parameters": {
+										"unique-id": "SecondUID"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 413657898721183,
+									"parameters": {
+										"variable": "secondX",
+										"value": "sElement.X"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 428597727425618,
+									"parameters": {
+										"variable": "secondY",
+										"value": "sElement.Y"
+									}
+								},
+								{
+									"id": "move-to-position",
+									"objectClass": "sElement",
+									"sid": 593631047896973,
+									"behaviorType": "MoveTo",
+									"parameters": {
+										"x": "firstX",
+										"y": "firstY",
+										"mode": "direct"
+									}
+								}
+							],
+							"sid": 480832439233575
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-unique-id",
+									"objectClass": "sElement",
+									"sid": 744354044905035,
+									"parameters": {
+										"unique-id": "FirstUID"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "move-to-position",
+									"objectClass": "sElement",
+									"sid": 316180618461151,
+									"behaviorType": "MoveTo",
+									"parameters": {
+										"x": "secondX",
+										"y": "secondY",
+										"mode": "direct"
+									}
+								}
+							],
+							"sid": 556561116007018
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "wait",
+									"objectClass": "System",
+									"sid": 941478651378032,
+									"parameters": {
+										"seconds": "0.2"
+									}
+								}
+							],
+							"sid": 612887895355532
+						}
+					]
+				},
+				{
+					"functionName": "wrongMoveElementsAtLayout",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": true,
+					"functionParameters": [
+						{
+							"name": "FirstUID",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"sid": 525640571721447
+						},
+						{
+							"name": "SecondUID",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"sid": 589556049732972
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 422999852360595,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-unique-id",
+									"objectClass": "sElement",
+									"sid": 155885685093825,
+									"parameters": {
+										"unique-id": "FirstUID"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-active",
+									"objectClass": "sElement",
+									"sid": 731294216356379,
+									"behaviorType": "Sine",
+									"parameters": {
+										"state": "active"
+									}
+								},
+								{
+									"id": "wait",
+									"objectClass": "System",
+									"sid": 291985226951790,
+									"parameters": {
+										"seconds": "0.2"
+									}
+								},
+								{
+									"id": "set-active",
+									"objectClass": "sElement",
+									"sid": 507410927474185,
+									"behaviorType": "Sine",
+									"parameters": {
+										"state": "inactive"
+									}
+								},
+								{
+									"id": "set-cycle-position",
+									"objectClass": "sElement",
+									"sid": 133840687508955,
+									"behaviorType": "Sine",
+									"parameters": {
+										"cycle-position": "0"
+									}
+								}
+							],
+							"sid": 463618479573917
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "pick-by-unique-id",
+									"objectClass": "sElement",
+									"sid": 509531812461249,
+									"parameters": {
+										"unique-id": "SecondUID"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-active",
+									"objectClass": "sElement",
+									"sid": 935944072705912,
+									"behaviorType": "Sine",
+									"parameters": {
+										"state": "active"
+									}
+								},
+								{
+									"id": "wait",
+									"objectClass": "System",
+									"sid": 174296709714266,
+									"parameters": {
+										"seconds": "0.2"
+									}
+								},
+								{
+									"id": "set-active",
+									"objectClass": "sElement",
+									"sid": 691618333616300,
+									"behaviorType": "Sine",
+									"parameters": {
+										"state": "inactive"
+									}
+								},
+								{
+									"id": "set-cycle-position",
+									"objectClass": "sElement",
+									"sid": 295820537524824,
+									"behaviorType": "Sine",
+									"parameters": {
+										"cycle-position": "0"
+									}
+								}
+							],
+							"sid": 252159770765892
+						}
+					]
+				},
+				{
+					"functionName": "moveElementsAtArray",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 955106689709497,
+					"children": [
+						{
+							"eventType": "comment",
+							"text": "Проверка, являются ли элементы соседями, если 1 - соседи"
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 465180099435378,
+									"parameters": {
+										"first-value": "(abs(arrChangeSelection.At(1,0) - arrChangeSelection.At(0,0))) + (abs(arrChangeSelection.At(1,1) - arrChangeSelection.At(0,1)))",
+										"comparison": 0,
+										"second-value": "1"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "log",
+									"sid": 216568904817889,
+									"parameters": [
+										"\"Выбранные элементы - соседи\""
+									]
+								}
+							],
+							"sid": 103196022701818,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"type": "comment",
+											"text": "Записываем имена сменяемых элементов (0,0; 0,1)"
+										},
+										{
+											"id": "set-at-xy",
+											"objectClass": "arrChange",
+											"sid": 921785264887191,
+											"parameters": {
+												"x": "0",
+												"y": "0",
+												"value": "arrMainField.At(arrChangeSelection.At(0,0), arrChangeSelection.At(0,1),0)"
+											}
+										},
+										{
+											"id": "set-at-xy",
+											"objectClass": "arrChange",
+											"sid": 145170645904043,
+											"parameters": {
+												"x": "0",
+												"y": "1",
+												"value": "arrMainField.At(arrChangeSelection.At(1,0), arrChangeSelection.At(1,1),0)"
+											}
+										},
+										{
+											"type": "comment",
+											"text": "Записываем UID сменяемых элементов (1,0; 1,1)"
+										},
+										{
+											"id": "set-at-xy",
+											"objectClass": "arrChange",
+											"sid": 787199826024288,
+											"parameters": {
+												"x": "1",
+												"y": "0",
+												"value": "arrMainField.At(arrChangeSelection.At(0,0), arrChangeSelection.At(0,1),1)"
+											}
+										},
+										{
+											"id": "set-at-xy",
+											"objectClass": "arrChange",
+											"sid": 955531997358938,
+											"parameters": {
+												"x": "1",
+												"y": "1",
+												"value": "arrMainField.At(arrChangeSelection.At(1,0), arrChangeSelection.At(1,1),1)"
+											}
+										},
+										{
+											"type": "comment",
+											"text": "Меняем имена сменяемых элементов на поле местами"
+										},
+										{
+											"id": "set-at-xyz",
+											"objectClass": "arrMainField",
+											"sid": 942452140630477,
+											"parameters": {
+												"x": "arrChangeSelection.At(0,0)",
+												"y": "arrChangeSelection.At(0,1)",
+												"z": "0",
+												"value": "arrChange.At(0,1)"
+											}
+										},
+										{
+											"id": "set-at-xyz",
+											"objectClass": "arrMainField",
+											"sid": 744802854377493,
+											"parameters": {
+												"x": "arrChangeSelection.At(1,0)",
+												"y": "arrChangeSelection.At(1,1)",
+												"z": "0",
+												"value": "arrChange.At(0,0)"
+											}
+										},
+										{
+											"type": "comment",
+											"text": "Меняем UID сменяемых элементов на поле местами"
+										},
+										{
+											"id": "set-at-xyz",
+											"objectClass": "arrMainField",
+											"sid": 438189641637460,
+											"parameters": {
+												"x": "arrChangeSelection.At(0,0)",
+												"y": "arrChangeSelection.At(0,1)",
+												"z": "1",
+												"value": "arrChange.At(1,1)"
+											}
+										},
+										{
+											"id": "set-at-xyz",
+											"objectClass": "arrMainField",
+											"sid": 161013222970165,
+											"parameters": {
+												"x": "arrChangeSelection.At(1,0)",
+												"y": "arrChangeSelection.At(1,1)",
+												"z": "1",
+												"value": "arrChange.At(1,0)"
+											}
+										}
+									],
+									"sid": 321668439794033
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "wait-for-previous-actions",
+											"objectClass": "System",
+											"sid": 113100239675829
+										}
+									],
+									"sid": 863815804350499,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-two-values",
+													"objectClass": "System",
+													"sid": 622898607844274,
+													"parameters": {
+														"first-value": "Functions.playerChangeAnalysis",
+														"comparison": 0,
+														"second-value": "1"
+													}
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "log",
+													"sid": 694017197601959,
+													"parameters": [
+														"\"🟢 Перемещение образует комбинацию \""
+													]
+												},
+												{
+													"callFunction": "moveElementsAtLayout",
+													"sid": 957425385687039,
+													"parameters": [
+														"arrChange.At(1,0)",
+														"arrChange.At(1,1)"
+													]
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 378100689350981
+												},
+												{
+													"callFunction": "matchAnalysis",
+													"sid": 869620523474873
+												}
+											],
+											"sid": 401827057133002
+										},
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "else",
+													"objectClass": "System",
+													"sid": 944623997415404
+												}
+											],
+											"actions": [
+												{
+													"callFunction": "log",
+													"sid": 495337921388627,
+													"parameters": [
+														"\"🔴 Перемещение не образует комбинацию \""
+													]
+												},
+												{
+													"callFunction": "wrongMoveElementsAtLayout",
+													"sid": 644942589961257,
+													"parameters": [
+														"arrChange.At(1,0)",
+														"arrChange.At(1,1)"
+													]
+												},
+												{
+													"id": "wait-for-previous-actions",
+													"objectClass": "System",
+													"sid": 429161113422245
+												},
+												{
+													"type": "comment",
+													"text": "Меняем имена сменяемых элементов на поле местами обратно"
+												},
+												{
+													"id": "set-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 107391898823452,
+													"parameters": {
+														"x": "arrChangeSelection.At(0,0)",
+														"y": "arrChangeSelection.At(0,1)",
+														"z": "0",
+														"value": "arrChange.At(0,0)"
+													}
+												},
+												{
+													"id": "set-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 517538170731169,
+													"parameters": {
+														"x": "arrChangeSelection.At(1,0)",
+														"y": "arrChangeSelection.At(1,1)",
+														"z": "0",
+														"value": "arrChange.At(0,1)"
+													}
+												},
+												{
+													"type": "comment",
+													"text": "Меняем UID сменяемых элементов на поле местами обратно"
+												},
+												{
+													"id": "set-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 352073948552419,
+													"parameters": {
+														"x": "arrChangeSelection.At(0,0)",
+														"y": "arrChangeSelection.At(0,1)",
+														"z": "1",
+														"value": "arrChange.At(1,0)"
+													}
+												},
+												{
+													"id": "set-at-xyz",
+													"objectClass": "arrMainField",
+													"sid": 282229042254427,
+													"parameters": {
+														"x": "arrChangeSelection.At(1,0)",
+														"y": "arrChangeSelection.At(1,1)",
+														"z": "1",
+														"value": "arrChange.At(1,1)"
+													}
+												}
+											],
+											"sid": 828140601996357
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 228016457090602
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "log",
+									"sid": 362049349304659,
+									"parameters": [
+										"\"🔴 Выбранные элементы не соседи\""
+									]
+								}
+							],
+							"sid": 330420078165953
+						}
+					]
+				},
+				{
+					"functionName": "movesWithElementAvailable",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "number",
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "elementID",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"sid": 676581597628218
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 349548724925574,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 564394140888600,
+									"parameters": {
+										"name": "\"line\"",
+										"start-index": "0",
+										"end-index": "arrMainField.Height-1"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 880796260737036,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 556658307653232,
+											"parameters": {
+												"name": "\"column\"",
+												"start-index": "0",
+												"end-index": "arrMainField.Width-1"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 964641913890966,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xy",
+													"objectClass": "arrMainField",
+													"sid": 207972882834288,
+													"parameters": {
+														"x": "loopindex(\"column\")",
+														"y": "loopindex(\"line\")",
+														"comparison": 0,
+														"value": "elementID"
+													}
+												}
+											],
+											"actions": [],
+											"sid": 525995280811916,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "for",
+															"objectClass": "System",
+															"sid": 862294232914663,
+															"parameters": {
+																"name": "\"pattern\"",
+																"start-index": "0",
+																"end-index": "15"
+															}
+														}
+													],
+													"actions": [],
+													"sid": 998576523639627,
+													"children": [
+														{
+															"eventType": "variable",
+															"name": "matchesCount",
+															"type": "number",
+															"initialValue": "0",
+															"comment": "",
+															"isStatic": false,
+															"isConstant": false,
+															"sid": 305753919906037
+														},
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "for",
+																	"objectClass": "System",
+																	"sid": 487956790628614,
+																	"parameters": {
+																		"name": "\"patternLine\"",
+																		"start-index": "0",
+																		"end-index": "3"
+																	}
+																}
+															],
+															"actions": [],
+															"sid": 275700657551012,
+															"children": [
+																{
+																	"eventType": "block",
+																	"conditions": [
+																		{
+																			"id": "for",
+																			"objectClass": "System",
+																			"sid": 400555853704320,
+																			"parameters": {
+																				"name": "\"patternColumn\"",
+																				"start-index": "0",
+																				"end-index": "3"
+																			}
+																		}
+																	],
+																	"actions": [],
+																	"sid": 592582160659524,
+																	"children": [
+																		{
+																			"eventType": "block",
+																			"conditions": [
+																				{
+																					"id": "compare-at-xyz",
+																					"objectClass": "arrMovesMasks",
+																					"sid": 878908445847707,
+																					"parameters": {
+																						"x": "loopindex(\"patternColumn\")",
+																						"y": "loopindex(\"patternLine\")",
+																						"z": "loopindex(\"pattern\")",
+																						"comparison": 0,
+																						"value": "1"
+																					}
+																				}
+																			],
+																			"actions": [],
+																			"sid": 903079198729024,
+																			"children": [
+																				{
+																					"eventType": "block",
+																					"conditions": [
+																						{
+																							"id": "compare-at-xy",
+																							"objectClass": "arrMainField",
+																							"sid": 541267272471484,
+																							"parameters": {
+																								"x": "loopindex(\"column\")+loopindex(\"patternColumn\")",
+																								"y": "loopindex(\"line\")+loopindex(\"patternLine\")",
+																								"comparison": 0,
+																								"value": "elementID"
+																							}
+																						}
+																					],
+																					"actions": [
+																						{
+																							"id": "add-to-eventvar",
+																							"objectClass": "System",
+																							"sid": 786125039407630,
+																							"parameters": {
+																								"variable": "matchesCount",
+																								"value": "1"
+																							}
+																						}
+																					],
+																					"sid": 137934141228102
+																				}
+																			]
+																		}
+																	]
+																}
+															]
+														},
+														{
+															"eventType": "block",
+															"conditions": [
+																{
+																	"id": "compare-eventvar",
+																	"objectClass": "System",
+																	"sid": 689968596972236,
+																	"parameters": {
+																		"variable": "matchesCount",
+																		"comparison": 0,
+																		"value": "3"
+																	}
+																}
+															],
+															"actions": [
+																{
+																	"callFunction": "log",
+																	"sid": 426236241449977,
+																	"disabled": true,
+																	"parameters": [
+																		"\"Ходы есть. Где-то в районе: X: \" & loopindex(\"column\") & \" Y: \" & loopindex(\"line\") & \" с элементом: \" & elementID"
+																	]
+																},
+																{
+																	"id": "stop-loop",
+																	"objectClass": "System",
+																	"sid": 314708288459921
+																},
+																{
+																	"id": "set-function-return-value",
+																	"objectClass": "Functions",
+																	"sid": 671251591047501,
+																	"parameters": {
+																		"value": "1"
+																	}
+																}
+															],
+															"sid": 798592099892361
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-function-return-value",
+									"objectClass": "Functions",
+									"sid": 825395972318083,
+									"parameters": {
+										"value": "0"
+									}
+								}
+							],
+							"sid": 881220740977300
+						}
+					]
+				},
+				{
+					"functionName": "movesAvailable",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "number",
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 411121257221047,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 931840439720309,
+									"parameters": {
+										"first-value": "Functions.movesWithElementAvailable(\"Green\")",
+										"comparison": 0,
+										"second-value": "1"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 206504406907048,
+									"parameters": {
+										"first-value": "Functions.movesWithElementAvailable(\"Blue\")",
+										"comparison": 0,
+										"second-value": "1"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 262232449508235,
+									"parameters": {
+										"first-value": "Functions.movesWithElementAvailable(\"Red\")",
+										"comparison": 0,
+										"second-value": "1"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 344871743823371,
+									"parameters": {
+										"first-value": "Functions.movesWithElementAvailable(\"Yellow\")",
+										"comparison": 0,
+										"second-value": "1"
+									}
+								},
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 304640390150246,
+									"parameters": {
+										"first-value": "Functions.movesWithElementAvailable(\"Purple\")",
+										"comparison": 0,
+										"second-value": "1"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "log",
+									"sid": 798658635876152,
+									"parameters": [
+										"\"ХОДЫ ЕСТЬ\""
+									]
+								},
+								{
+									"id": "set-function-return-value",
+									"objectClass": "Functions",
+									"sid": 776746783683266,
+									"parameters": {
+										"value": "1"
+									}
+								}
+							],
+							"sid": 506554472607272,
+							"isOrBlock": true
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 649727357478362
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "log",
+									"sid": 804038247868826,
+									"parameters": [
+										"\"🔴🔴🔴🔴🔴\""
+									]
+								},
+								{
+									"callFunction": "log",
+									"sid": 935359695038425,
+									"parameters": [
+										"\"НЕТ ХОДОВ\""
+									]
+								},
+								{
+									"callFunction": "log",
+									"sid": 521206567237593,
+									"parameters": [
+										"\"🔴🔴🔴🔴🔴\""
+									]
+								},
+								{
+									"id": "set-function-return-value",
+									"objectClass": "Functions",
+									"sid": 937136026956942,
+									"parameters": {
+										"value": "0"
+									}
+								}
+							],
+							"sid": 866606795617738
+						}
+					]
+				}
+			],
+			"sid": 318561594250023
+		},
+		{
+			"functionName": "elementFallOnLayout",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "elementUID",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"sid": 125711024196205
+				},
+				{
+					"name": "x",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"sid": 642090305106064
+				},
+				{
+					"name": "y",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"sid": 241933162175051
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 138991028702232,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "pick-by-unique-id",
+							"objectClass": "sElement",
+							"sid": 503005515490036,
+							"parameters": {
+								"unique-id": "elementUID"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-instvar-value",
+							"objectClass": "sElement",
+							"sid": 586564889584472,
+							"parameters": {
+								"instance-variable": "fieldX",
+								"value": "x"
+							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "sElement",
+							"sid": 254588053043624,
+							"parameters": {
+								"instance-variable": "fieldY",
+								"value": "y"
+							}
+						},
+						{
+							"id": "move-to-position",
+							"objectClass": "sElement",
+							"sid": 101994054840781,
+							"behaviorType": "MoveTo",
+							"parameters": {
+								"x": "tbGrid.X+(Self.fieldX*128)+64",
+								"y": "tbGrid.Y+(Self.fieldY*128)+64",
+								"mode": "direct"
+							}
+						}
+					],
+					"sid": 759558472236159
+				}
+			]
+		},
+		{
+			"functionName": "fallingElements",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 506939617454810,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "setGameState",
+							"sid": 423889183140013,
+							"parameters": [
+								"\"fallingElements\""
+							]
+						}
+					],
+					"sid": 304468834910543
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "while",
+							"objectClass": "System",
+							"sid": 868059618110302
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 463015020270884,
+							"parameters": {
+								"variable": "gameState",
+								"comparison": 0,
+								"value": "\"fallingElements\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 500215261677316,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "line",
+							"type": "number",
+							"initialValue": "10",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 584383203316520
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "while",
+									"objectClass": "System",
+									"sid": 952484953430108
+								},
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 802537194215080,
+									"parameters": {
+										"variable": "line",
+										"comparison": 4,
+										"value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "subtract-from-eventvar",
+									"objectClass": "System",
+									"sid": 499879982327346,
+									"parameters": {
+										"variable": "line",
+										"value": "1"
+									}
+								}
+							],
+							"sid": 364275111098801,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "for",
+											"objectClass": "System",
+											"sid": 473345683572546,
+											"parameters": {
+												"name": "\"column\"",
+												"start-index": "0",
+												"end-index": "7"
+											}
+										}
+									],
+									"actions": [],
+									"sid": 149010566895856,
+									"children": [
+										{
+											"eventType": "block",
+											"conditions": [
+												{
+													"id": "compare-at-xy",
+													"objectClass": "arrMainField",
+													"sid": 844240051665146,
+													"parameters": {
+														"x": "loopindex(\"column\")",
+														"y": "line",
+														"comparison": 0,
+														"value": "\"none\""
+													}
+												}
+											],
+											"actions": [],
+											"sid": 971483756792986,
+											"children": [
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "compare-two-values",
+															"objectClass": "System",
+															"sid": 133908062367499,
+															"parameters": {
+																"first-value": "arrMainField.At(loopindex(\"column\"),line-1)",
+																"comparison": 0,
+																"second-value": "0"
+															}
+														}
+													],
+													"actions": [
+														{
+															"type": "comment",
+															"text": "Генерация нового элемента"
+														},
+														{
+															"id": "set-at-xy",
+															"objectClass": "arrMainField",
+															"sid": 998933366727434,
+															"parameters": {
+																"x": "loopindex(\"column\")",
+																"y": "line",
+																"value": "\"generate\""
+															}
+														},
+														{
+															"callFunction": "regenerateFallingElements",
+															"sid": 997545997250351
+														}
+													],
+													"sid": 265199858207302
+												},
+												{
+													"eventType": "block",
+													"conditions": [
+														{
+															"id": "else",
+															"objectClass": "System",
+															"sid": 227060540933583
+														}
+													],
+													"actions": [
+														{
+															"type": "comment",
+															"text": "Падение вниз"
+														},
+														{
+															"id": "set-at-xyz",
+															"objectClass": "arrMainField",
+															"sid": 889219126929303,
+															"parameters": {
+																"x": "loopindex(\"column\")",
+																"y": "line",
+																"z": "0",
+																"value": "Self.At(loopindex(\"column\"),line-1, 0)"
+															}
+														},
+														{
+															"id": "set-at-xyz",
+															"objectClass": "arrMainField",
+															"sid": 847440601091337,
+															"parameters": {
+																"x": "loopindex(\"column\")",
+																"y": "line-1",
+																"z": "0",
+																"value": "\"none\""
+															}
+														},
+														{
+															"id": "set-at-xyz",
+															"objectClass": "arrMainField",
+															"sid": 152391599479206,
+															"parameters": {
+																"x": "loopindex(\"column\")",
+																"y": "line",
+																"z": "1",
+																"value": "Self.At(loopindex(\"column\"),line-1, 1)"
+															}
+														},
+														{
+															"id": "set-at-xyz",
+															"objectClass": "arrMainField",
+															"sid": 679317045587393,
+															"parameters": {
+																"x": "loopindex(\"column\")",
+																"y": "line-1",
+																"z": "1",
+																"value": "0"
+															}
+														}
+													],
+													"sid": 861109048171793
+												}
+											],
+											"isOrBlock": true
+										}
+									]
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "contains-value",
+									"objectClass": "arrMainField",
+									"sid": 974147636908116,
+									"parameters": {
+										"value": "\"none\""
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"type": "comment",
+									"text": "movesAvailableTest - временно, вынести в отдельную функцию (после починки)"
+								},
+								{
+									"callFunction": "setGameState",
+									"sid": 418584166122532,
+									"parameters": [
+										"\"movesAvailableTest\""
+									]
+								},
+								{
+									"type": "comment",
+									"text": "ready - тоже должна ставиться после проверки на возможность хода"
+								},
+								{
+									"callFunction": "setGameState",
+									"sid": 868257395313020,
+									"parameters": [
+										"\"ready\""
+									]
+								},
+								{
+									"callFunction": "matchAnalysis",
+									"sid": 121265546340046
+								}
+							],
+							"sid": 889363950933602
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "wait-for-previous-actions",
+									"objectClass": "System",
+									"sid": 907519639092717
+								}
+							],
+							"sid": 331405244246922
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for-each-element",
+									"objectClass": "arrMainField",
+									"sid": 259638776975035,
+									"parameters": {
+										"axes": "xy"
+									}
+								}
+							],
+							"actions": [],
+							"sid": 433477909581326,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "pick-by-unique-id",
+											"objectClass": "sElement",
+											"sid": 101449384923796,
+											"parameters": {
+												"unique-id": "arrMainField.At(arrMainField.CurX, arrMainField.CurY,1)"
+											}
+										}
+									],
+									"actions": [
+										{
+											"callFunction": "elementFallOnLayout",
+											"sid": 632104017394245,
+											"parameters": [
+												"sElement.UID",
+												"arrMainField.CurX",
+												"arrMainField.CurY"
+											]
+										}
+									],
+									"sid": 121465851363509
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "respawnField",
+							"sid": 639268458974318,
+							"disabled": true
+						}
+					],
+					"sid": 780032447774262
+				}
+			]
+		},
+		{
+			"functionName": "destroyElementAnimation",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": true,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 508213325848532,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each-element",
+							"objectClass": "arrMainField",
+							"sid": 366998762926794,
+							"parameters": {
+								"axes": "xy"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 836694557838248,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-at-xy",
+									"objectClass": "arrMatchHorizontal",
+									"sid": 470755196681869,
+									"parameters": {
+										"x": "arrMainField.CurX",
+										"y": "arrMainField.CurY",
+										"comparison": 4,
+										"value": "2"
+									}
+								},
+								{
+									"id": "compare-at-xy",
+									"objectClass": "arrMatchVertical",
+									"sid": 202407105608209,
+									"parameters": {
+										"x": "arrMainField.CurX",
+										"y": "arrMainField.CurY",
+										"comparison": 4,
+										"value": "2"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "create-object",
+									"objectClass": "System",
+									"sid": 894140036394347,
+									"parameters": {
+										"object-to-create": "sDestroy",
+										"layer": "\"Elements\"",
+										"x": "tbGrid.X + 64 +  (arrMainField.CurX * 128)",
+										"y": "tbGrid.Y + 64 + (arrMainField.CurY * 128)"
+									}
+								}
+							],
+							"sid": 782022717238893,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "sElement",
+											"sid": 474403804638636,
+											"parameters": {
+												"instance-variable": "fieldX",
+												"comparison": 0,
+												"value": "arrMainField.CurX"
+											}
+										},
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "sElement",
+											"sid": 736717046420727,
+											"parameters": {
+												"instance-variable": "fieldY",
+												"comparison": 0,
+												"value": "arrMainField.CurY"
+											}
+										}
+									],
+									"actions": [
+										{
+											"type": "comment",
+											"text": "Здесь можно запустить анимацию дестроя"
+										}
+									],
+									"sid": 249043606419445
+								}
+							],
+							"isOrBlock": true
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "wait",
+							"objectClass": "System",
+							"sid": 202478512474448,
+							"parameters": {
+								"seconds": "0.1"
+							}
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 817736408888248
+						}
+					],
+					"sid": 452245482533626
+				}
+			]
+		},
+		{
+			"eventType": "comment",
+			"text": "Функция должна заспавнить все элементы из массива arrMainField и прописать в массив их UID"
+		},
+		{
+			"functionName": "respawnField",
+			"functionDescription": "",
+			"functionCategory": "Field Array",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"callFunction": "log",
+					"sid": 809791077614945,
+					"parameters": [
+						"\"Начат спаун поля\""
+					]
+				},
+				{
+					"id": "destroy",
+					"objectClass": "sElement",
+					"sid": 188563852131794
+				}
+			],
+			"sid": 853704140968714,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each-element",
+							"objectClass": "arrMainField",
+							"sid": 741865302522951,
+							"parameters": {
+								"axes": "xy"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 286897435496275,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-current-value",
+									"objectClass": "arrMainField",
+									"sid": 606310767518742,
+									"parameters": {
+										"comparison": 0,
+										"value": "\"none\""
+									},
+									"isInverted": true
+								}
+							],
+							"actions": [
+								{
+									"id": "create-object",
+									"objectClass": "System",
+									"sid": 143043973936926,
+									"parameters": {
+										"object-to-create": "sElement",
+										"layer": "\"Elements\"",
+										"x": "tbGrid.X + 64 + (arrMainField.CurX * 128)",
+										"y": "tbGrid.Y + 64 + (arrMainField.CurY * 128)"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "sElement",
+									"sid": 806823955320360,
+									"parameters": {
+										"instance-variable": "fieldX",
+										"value": "arrMainField.CurX"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "sElement",
+									"sid": 226680507142717,
+									"parameters": {
+										"instance-variable": "fieldY",
+										"value": "arrMainField.CurY"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "sElement",
+									"sid": 246966728713073,
+									"parameters": {
+										"instance-variable": "elementTypeID",
+										"value": "arrMainField.CurValue"
+									}
+								},
+								{
+									"id": "set-animation",
+									"objectClass": "sElement",
+									"sid": 522033501207897,
+									"parameters": {
+										"animation": "Self.elementTypeID",
+										"from": "beginning"
+									}
+								},
+								{
+									"id": "set-at-xyz",
+									"objectClass": "arrMainField",
+									"sid": 425440916080419,
+									"parameters": {
+										"x": "arrMainField.CurX",
+										"y": "arrMainField.CurY",
+										"z": "1",
+										"value": "sElement.UID"
+									}
+								}
+							],
+							"sid": 569144476260600
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "log",
+							"sid": 368805244586561,
+							"parameters": [
+								"\"Поле заспаунено\""
+							]
+						}
+					],
+					"sid": 795839854127305
+				}
+			]
+		}
+	],
+	"sid": 940857694988227
+}

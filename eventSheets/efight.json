@@ -1,0 +1,1575 @@
+{
+	"name": "eFight",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "playerHP",
+			"type": "number",
+			"initialValue": "100",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 605434491625908
+		},
+		{
+			"eventType": "variable",
+			"name": "playerMaxHP",
+			"type": "number",
+			"initialValue": "100",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 238299045307878
+		},
+		{
+			"eventType": "variable",
+			"name": "coins",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 809772831317162
+		},
+		{
+			"eventType": "variable",
+			"name": "playerRedMana",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 808789212674102
+		},
+		{
+			"eventType": "variable",
+			"name": "playerGreenMana",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 236233214948121
+		},
+		{
+			"eventType": "variable",
+			"name": "playerBlueMana",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 476661736027658
+		},
+		{
+			"eventType": "variable",
+			"name": "playerYellowMana",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 224818619430515
+		},
+		{
+			"eventType": "variable",
+			"name": "playerPurpleMana",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 422928935428738
+		},
+		{
+			"eventType": "variable",
+			"name": "enemyHP",
+			"type": "number",
+			"initialValue": "100",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 972017297230675
+		},
+		{
+			"eventType": "variable",
+			"name": "enemyMaxHP",
+			"type": "number",
+			"initialValue": "100",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 451993654755201
+		},
+		{
+			"eventType": "variable",
+			"name": "turnsBeforeEnemyAttack",
+			"type": "number",
+			"initialValue": "3",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 802648268951992
+		},
+		{
+			"eventType": "variable",
+			"name": "turnsBeforeEnemyAttackMax",
+			"type": "number",
+			"initialValue": "3",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 808285195001199
+		},
+		{
+			"eventType": "variable",
+			"name": "manaMax",
+			"type": "number",
+			"initialValue": "10",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": true,
+			"sid": 921381626604968
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 203773988787782
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "updateGUI",
+					"sid": 603987748664566
+				}
+			],
+			"sid": 239491863831229
+		},
+		{
+			"eventType": "comment",
+			"text": "Damage types: basic, red, green, blue, yellow, purple"
+		},
+		{
+			"functionName": "addCoins",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "count",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"sid": 638592646010004
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "add-to-eventvar",
+					"objectClass": "System",
+					"sid": 522983827201060,
+					"parameters": {
+						"variable": "coins",
+						"value": "count"
+					}
+				}
+			],
+			"sid": 307911846733310,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "updateGUI",
+							"sid": 133223147231480
+						}
+					],
+					"sid": 696103402746319
+				}
+			]
+		},
+		{
+			"functionName": "addColoredManaToPlayer",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "count",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"sid": 599250973571540
+				},
+				{
+					"name": "color",
+					"type": "string",
+					"initialValue": "",
+					"comment": "",
+					"sid": 524038768570058
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 859421933915762,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 371845801043736,
+							"parameters": {
+								"variable": "color",
+								"comparison": 0,
+								"value": "\"Red\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 985631742384022,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 482465077868017,
+									"parameters": {
+										"variable": "playerRedMana",
+										"comparison": 2,
+										"value": "manaMax"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "add-to-eventvar",
+									"objectClass": "System",
+									"sid": 477067574305316,
+									"parameters": {
+										"variable": "playerRedMana",
+										"value": "count"
+									}
+								}
+							],
+							"sid": 318481941795933
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 156369717537897,
+									"parameters": {
+										"variable": "playerRedMana",
+										"comparison": 4,
+										"value": "manaMax"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 378979424731870,
+									"parameters": {
+										"variable": "playerRedMana",
+										"value": "manaMax"
+									}
+								}
+							],
+							"sid": 470799438681864
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 591812041291537,
+							"parameters": {
+								"variable": "color",
+								"comparison": 0,
+								"value": "\"Green\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 790821777564292,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 351674379104235,
+									"parameters": {
+										"variable": "playerGreenMana",
+										"comparison": 2,
+										"value": "manaMax"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "add-to-eventvar",
+									"objectClass": "System",
+									"sid": 466000897977580,
+									"parameters": {
+										"variable": "playerGreenMana",
+										"value": "count"
+									}
+								}
+							],
+							"sid": 920446893570928
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 305736512309429,
+									"parameters": {
+										"variable": "playerGreenMana",
+										"comparison": 4,
+										"value": "manaMax"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 424373926936259,
+									"parameters": {
+										"variable": "playerGreenMana",
+										"value": "manaMax"
+									}
+								}
+							],
+							"sid": 610339281348083
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 641994361806242,
+							"parameters": {
+								"variable": "color",
+								"comparison": 0,
+								"value": "\"Blue\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 574097425988336,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 150961662169423,
+									"parameters": {
+										"variable": "playerBlueMana",
+										"comparison": 2,
+										"value": "manaMax"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "add-to-eventvar",
+									"objectClass": "System",
+									"sid": 939015181757155,
+									"parameters": {
+										"variable": "playerBlueMana",
+										"value": "count"
+									}
+								}
+							],
+							"sid": 708829697136118
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 395607010088139,
+									"parameters": {
+										"variable": "playerBlueMana",
+										"comparison": 4,
+										"value": "manaMax"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 161496868633444,
+									"parameters": {
+										"variable": "playerBlueMana",
+										"value": "manaMax"
+									}
+								}
+							],
+							"sid": 117175361227260
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 275489986406080,
+							"parameters": {
+								"variable": "color",
+								"comparison": 0,
+								"value": "\"Yellow\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 610594716959776,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 760159436988402,
+									"parameters": {
+										"variable": "playerYellowMana",
+										"comparison": 2,
+										"value": "manaMax"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "add-to-eventvar",
+									"objectClass": "System",
+									"sid": 564936900057955,
+									"parameters": {
+										"variable": "playerYellowMana",
+										"value": "count"
+									}
+								}
+							],
+							"sid": 584503535438820
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 302399311922602,
+									"parameters": {
+										"variable": "playerYellowMana",
+										"comparison": 4,
+										"value": "manaMax"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 856381436042643,
+									"parameters": {
+										"variable": "playerYellowMana",
+										"value": "manaMax"
+									}
+								}
+							],
+							"sid": 960592856217946
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 405968619398757,
+							"parameters": {
+								"variable": "color",
+								"comparison": 0,
+								"value": "\"Purple\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 559296225266740,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 633189436499375,
+									"parameters": {
+										"variable": "playerPurpleMana",
+										"comparison": 2,
+										"value": "manaMax"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "add-to-eventvar",
+									"objectClass": "System",
+									"sid": 873637562219631,
+									"parameters": {
+										"variable": "playerPurpleMana",
+										"value": "count"
+									}
+								}
+							],
+							"sid": 752395092584167
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 200351851543978,
+									"parameters": {
+										"variable": "playerPurpleMana",
+										"comparison": 4,
+										"value": "manaMax"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 268549604769475,
+									"parameters": {
+										"variable": "playerPurpleMana",
+										"value": "manaMax"
+									}
+								}
+							],
+							"sid": 568768660160110
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "updateGUI",
+							"sid": 182579164259899
+						}
+					],
+					"sid": 351630158472341
+				}
+			]
+		},
+		{
+			"functionName": "matchesReaction",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 471219706023537,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "multiplierMatch3",
+					"type": "number",
+					"initialValue": "1",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": true,
+					"sid": 397100727199424
+				},
+				{
+					"eventType": "variable",
+					"name": "multiplierMatch4",
+					"type": "number",
+					"initialValue": "2",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": true,
+					"sid": 547037420867366
+				},
+				{
+					"eventType": "variable",
+					"name": "multiplierMatch5",
+					"type": "number",
+					"initialValue": "3",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": true,
+					"sid": 729966769995159
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 864286785625004,
+							"parameters": {
+								"first-value": "arrMatchResult.At(0)",
+								"comparison": 4,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "log",
+							"sid": 657633749824792,
+							"parameters": [
+								"\"count of🟥: \"&arrMatchResult.At(0)"
+							]
+						}
+					],
+					"sid": 398387139872975,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 543267795027328,
+									"parameters": {
+										"first-value": "arrMatchResult.At(0)",
+										"comparison": 0,
+										"second-value": "3"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 426727758412389,
+									"parameters": [
+										"arrMatchResult.At(0)*multiplierMatch3",
+										"\"Red\""
+									]
+								}
+							],
+							"sid": 253711695764905
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 452659323898635,
+									"parameters": {
+										"first-value": "arrMatchResult.At(0)",
+										"comparison": 0,
+										"second-value": "4"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 166492817715117,
+									"parameters": [
+										"arrMatchResult.At(0)*multiplierMatch4",
+										"\"Red\""
+									]
+								}
+							],
+							"sid": 106152309560466
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 331036987608736,
+									"parameters": {
+										"first-value": "arrMatchResult.At(0)",
+										"comparison": 5,
+										"second-value": "5"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 296489326425222,
+									"parameters": [
+										"arrMatchResult.At(0)*multiplierMatch5",
+										"\"Red\""
+									]
+								}
+							],
+							"sid": 620202752299334
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 613865295034603,
+							"parameters": {
+								"first-value": "arrMatchResult.At(1)",
+								"comparison": 4,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "log",
+							"sid": 973908324074064,
+							"parameters": [
+								"\"count of🟩: \"&arrMatchResult.At(1)"
+							]
+						}
+					],
+					"sid": 180487788767068,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 236458782581150,
+									"parameters": {
+										"first-value": "arrMatchResult.At(1)",
+										"comparison": 0,
+										"second-value": "3"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 513728401308556,
+									"parameters": [
+										"arrMatchResult.At(1)*multiplierMatch3",
+										"\"Green\""
+									]
+								}
+							],
+							"sid": 432868022787102
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 132524722551459,
+									"parameters": {
+										"first-value": "arrMatchResult.At(1)",
+										"comparison": 0,
+										"second-value": "4"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 163799372497076,
+									"parameters": [
+										"arrMatchResult.At(1)*multiplierMatch4",
+										"\"Green\""
+									]
+								}
+							],
+							"sid": 384494089120430
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 459284901228628,
+									"parameters": {
+										"first-value": "arrMatchResult.At(1)",
+										"comparison": 5,
+										"second-value": "5"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 698822651083098,
+									"parameters": [
+										"arrMatchResult.At(1)*multiplierMatch5",
+										"\"Green\""
+									]
+								}
+							],
+							"sid": 244415614199656
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 853184546920338,
+							"parameters": {
+								"first-value": "arrMatchResult.At(2)",
+								"comparison": 4,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "log",
+							"sid": 615187831906373,
+							"parameters": [
+								"\"count of🟦: \"&arrMatchResult.At(2)"
+							]
+						}
+					],
+					"sid": 192244113533432,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 272126951312577,
+									"parameters": {
+										"first-value": "arrMatchResult.At(2)",
+										"comparison": 0,
+										"second-value": "3"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 830615734902466,
+									"parameters": [
+										"arrMatchResult.At(2)*multiplierMatch3",
+										"\"Blue\""
+									]
+								}
+							],
+							"sid": 483074809583796
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 790631218723310,
+									"parameters": {
+										"first-value": "arrMatchResult.At(2)",
+										"comparison": 0,
+										"second-value": "4"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 612119278038155,
+									"parameters": [
+										"arrMatchResult.At(2)*multiplierMatch4",
+										"\"Blue\""
+									]
+								}
+							],
+							"sid": 497892750679768
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 955603970260644,
+									"parameters": {
+										"first-value": "arrMatchResult.At(2)",
+										"comparison": 5,
+										"second-value": "5"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 298242296336976,
+									"parameters": [
+										"arrMatchResult.At(2)*multiplierMatch5",
+										"\"Blue\""
+									]
+								}
+							],
+							"sid": 921933685974099
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 647778715608512,
+							"parameters": {
+								"first-value": "arrMatchResult.At(3)",
+								"comparison": 4,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "log",
+							"sid": 886427542842883,
+							"parameters": [
+								"\"count of🟨: \"&arrMatchResult.At(3)"
+							]
+						}
+					],
+					"sid": 252664334556439,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 526742755964094,
+									"parameters": {
+										"first-value": "arrMatchResult.At(3)",
+										"comparison": 0,
+										"second-value": "3"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 550541124655568,
+									"parameters": [
+										"arrMatchResult.At(3)*multiplierMatch3",
+										"\"Yellow\""
+									]
+								}
+							],
+							"sid": 409919124443835
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 209699509639190,
+									"parameters": {
+										"first-value": "arrMatchResult.At(3)",
+										"comparison": 0,
+										"second-value": "4"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 477142373562285,
+									"parameters": [
+										"arrMatchResult.At(3)*multiplierMatch4",
+										"\"Yellow\""
+									]
+								}
+							],
+							"sid": 584568151276037
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 643859420720105,
+									"parameters": {
+										"first-value": "arrMatchResult.At(3)",
+										"comparison": 5,
+										"second-value": "5"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 740016697804766,
+									"parameters": [
+										"arrMatchResult.At(3)*multiplierMatch5",
+										"\"Yellow\""
+									]
+								}
+							],
+							"sid": 617774018116197
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 181127998261270,
+							"parameters": {
+								"first-value": "arrMatchResult.At(4)",
+								"comparison": 4,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"callFunction": "log",
+							"sid": 766131630257180,
+							"parameters": [
+								"\"count of🟪: \"&arrMatchResult.At(4)"
+							]
+						}
+					],
+					"sid": 201622442039734,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 969433224840426,
+									"parameters": {
+										"first-value": "arrMatchResult.At(4)",
+										"comparison": 0,
+										"second-value": "3"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 727748821902980,
+									"parameters": [
+										"arrMatchResult.At(4)*multiplierMatch3",
+										"\"Purple\""
+									]
+								}
+							],
+							"sid": 832151013472178
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 478859806471271,
+									"parameters": {
+										"first-value": "arrMatchResult.At(4)",
+										"comparison": 0,
+										"second-value": "4"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 683932612951579,
+									"parameters": [
+										"arrMatchResult.At(4)*multiplierMatch4",
+										"\"Purple\""
+									]
+								}
+							],
+							"sid": 452625396202454
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 947630607226183,
+									"parameters": {
+										"first-value": "arrMatchResult.At(4)",
+										"comparison": 5,
+										"second-value": "5"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "addColoredManaToPlayer",
+									"sid": 203184341546500,
+									"parameters": [
+										"arrMatchResult.At(4)*multiplierMatch5",
+										"\"Purple\""
+									]
+								}
+							],
+							"sid": 785329481635808
+						}
+					]
+				}
+			]
+		},
+		{
+			"functionName": "everyTurnEvent",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "subtract-from-eventvar",
+					"objectClass": "System",
+					"sid": 549791458839220,
+					"parameters": {
+						"variable": "turnsBeforeEnemyAttack",
+						"value": "1"
+					}
+				},
+				{
+					"callFunction": "updateGUI",
+					"sid": 569085731806026
+				}
+			],
+			"sid": 957270130574045
+		},
+		{
+			"functionName": "updateGUI",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 375983313516633,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "txtPlayerHP",
+							"sid": 792132610655511,
+							"parameters": {
+								"text": "playerHP"
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "txtEnemyHP",
+							"sid": 731485354323282,
+							"parameters": {
+								"text": "enemyHP"
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "txtPlayerCoins",
+							"sid": 378336813315713,
+							"parameters": {
+								"text": "coins"
+							}
+						}
+					],
+					"sid": 629200583777311
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "sProgressBar",
+							"sid": 411934757393527,
+							"parameters": {
+								"instance-variable": "id",
+								"comparison": 0,
+								"value": "\"redSpell\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-width",
+							"objectClass": "sProgressBar",
+							"sid": 306211717592185,
+							"parameters": {
+								"width": "144*(playerRedMana/manaMax)"
+							}
+						}
+					],
+					"sid": 670708661695920
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "sProgressBar",
+							"sid": 664600785598710,
+							"parameters": {
+								"instance-variable": "id",
+								"comparison": 0,
+								"value": "\"greenSpell\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-width",
+							"objectClass": "sProgressBar",
+							"sid": 215159466243905,
+							"parameters": {
+								"width": "144*(playerGreenMana/manaMax)"
+							}
+						}
+					],
+					"sid": 577267549749022
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "sProgressBar",
+							"sid": 855882206562259,
+							"parameters": {
+								"instance-variable": "id",
+								"comparison": 0,
+								"value": "\"blueSpell\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-width",
+							"objectClass": "sProgressBar",
+							"sid": 903633677640474,
+							"parameters": {
+								"width": "144*(playerBlueMana/manaMax)"
+							}
+						}
+					],
+					"sid": 984641444472022
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "sProgressBar",
+							"sid": 860314532153815,
+							"parameters": {
+								"instance-variable": "id",
+								"comparison": 0,
+								"value": "\"yellowSpell\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-width",
+							"objectClass": "sProgressBar",
+							"sid": 391545026716624,
+							"parameters": {
+								"width": "144*(playerYellowMana/manaMax)"
+							}
+						}
+					],
+					"sid": 451872406542500
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "sProgressBar",
+							"sid": 212281889988422,
+							"parameters": {
+								"instance-variable": "id",
+								"comparison": 0,
+								"value": "\"purpleSpell\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-width",
+							"objectClass": "sProgressBar",
+							"sid": 676541772857241,
+							"parameters": {
+								"width": "144*(playerPurpleMana/manaMax)"
+							}
+						}
+					],
+					"sid": 749984114143503
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "sProgressBar",
+							"sid": 566768268511393,
+							"parameters": {
+								"instance-variable": "id",
+								"comparison": 0,
+								"value": "\"playerHP\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-width",
+							"objectClass": "sProgressBar",
+							"sid": 969217483829984,
+							"parameters": {
+								"width": "144*(playerHP/playerMaxHP)"
+							}
+						}
+					],
+					"sid": 115122643999815
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "sProgressBar",
+							"sid": 590232904033921,
+							"parameters": {
+								"instance-variable": "id",
+								"comparison": 0,
+								"value": "\"enemyHP\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-width",
+							"objectClass": "sProgressBar",
+							"sid": 159871412901238,
+							"parameters": {
+								"width": "144*(enemyHP/enemyMaxHP)"
+							}
+						}
+					],
+					"sid": 878057507625862
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-instance-variable",
+							"objectClass": "sProgressBar",
+							"sid": 526781701246477,
+							"parameters": {
+								"instance-variable": "id",
+								"comparison": 0,
+								"value": "\"enemyAttack\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-width",
+							"objectClass": "sProgressBar",
+							"sid": 115589066107828,
+							"parameters": {
+								"width": "144*(turnsBeforeEnemyAttack/turnsBeforeEnemyAttackMax)"
+							}
+						}
+					],
+					"sid": 760265952166150
+				}
+			]
+		},
+		{
+			"functionName": "applyDamageToPlayer",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "damage",
+					"type": "number",
+					"initialValue": "10",
+					"comment": "",
+					"sid": 870094158666431
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 775672933334692,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "updateGUI",
+							"sid": 126562953317599
+						}
+					],
+					"sid": 791555408551410
+				}
+			]
+		},
+		{
+			"functionName": "applyDamageToEnemy",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [
+				{
+					"name": "damage",
+					"type": "number",
+					"initialValue": "10",
+					"comment": "",
+					"sid": 951660889011755
+				},
+				{
+					"name": "type",
+					"type": "string",
+					"initialValue": "basic",
+					"comment": "",
+					"sid": 398148165577489
+				}
+			],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 924792955180659,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "subtract-from-eventvar",
+							"objectClass": "System",
+							"sid": 560606983504548,
+							"parameters": {
+								"variable": "enemyHP",
+								"value": "damage"
+							}
+						},
+						{
+							"callFunction": "updateGUI",
+							"sid": 565334305255399
+						}
+					],
+					"sid": 845497981418073
+				}
+			]
+		},
+		{
+			"functionName": "createNewEnemy",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 833090925499150
+		},
+		{
+			"functionName": "enemyDeadth",
+			"functionDescription": "",
+			"functionCategory": "",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [],
+			"sid": 266590945017259
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "spells",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [],
+					"sid": 474937622006047
+				}
+			],
+			"sid": 669519698233280
+		}
+	],
+	"sid": 611877900984097
+}

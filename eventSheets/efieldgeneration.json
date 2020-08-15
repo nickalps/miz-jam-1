@@ -1,0 +1,534 @@
+{
+	"name": "eFieldGeneration",
+	"events": [
+		{
+			"functionName": "clearFieldArray",
+			"functionDescription": "",
+			"functionCategory": "Field Array",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"id": "clear",
+					"objectClass": "arrMainField",
+					"sid": 681566472180600,
+					"parameters": {
+						"value": "0"
+					}
+				},
+				{
+					"callFunction": "log",
+					"sid": 797525371043432,
+					"parameters": [
+						"\"Поле очищено\""
+					]
+				}
+			],
+			"sid": 155000545211624
+		},
+		{
+			"functionName": "regenerateFallingElements",
+			"functionDescription": "",
+			"functionCategory": "Field Array",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"type": "comment",
+					"text": "Генерирует поле arrMainField без матчей, с использованием массива arrFieldGenerationList функции chooseElement.\nПо завершении вызывает respawnField"
+				}
+			],
+			"sid": 223587691504947,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each-element",
+							"objectClass": "arrMainField",
+							"sid": 731568549145865,
+							"parameters": {
+								"axes": "xy"
+							}
+						},
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 940332870384772,
+							"parameters": {
+								"first-value": "arrMainField.At(arrMainField.CurX,arrMainField.CurY, 0)",
+								"comparison": 0,
+								"second-value": "\"generate\""
+							}
+						}
+					],
+					"actions": [],
+					"sid": 464451786482676,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 476975110517483,
+									"parameters": {
+										"first-value": "arrMainField.At(arrMainField.CurX-2, arrMainField.CurY)",
+										"comparison": 0,
+										"second-value": "arrMainField.At(arrMainField.CurX-1, arrMainField.CurY)"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-at-xyz",
+									"objectClass": "arrFieldGenerationList",
+									"sid": 184705709479473,
+									"parameters": {
+										"x": "Self.IndexOf(arrMainField.At(arrMainField.CurX-2, arrMainField.CurY))",
+										"y": "1",
+										"z": "0",
+										"value": "0"
+									}
+								}
+							],
+							"sid": 971419175136079
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 397410239225335,
+									"parameters": {
+										"first-value": "arrMainField.At(arrMainField.CurX, arrMainField.CurY-2)",
+										"comparison": 0,
+										"second-value": "arrMainField.At(arrMainField.CurX, arrMainField.CurY-1)"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-at-xyz",
+									"objectClass": "arrFieldGenerationList",
+									"sid": 614124243723647,
+									"parameters": {
+										"x": "Self.IndexOf(arrMainField.At(arrMainField.CurX, arrMainField.CurY-2))",
+										"y": "1",
+										"z": "0",
+										"value": "0"
+									}
+								}
+							],
+							"sid": 781891985411341
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-at-xyz",
+									"objectClass": "arrMainField",
+									"sid": 956689912803594,
+									"parameters": {
+										"x": "Self.CurX",
+										"y": "Self.CurY",
+										"z": "0",
+										"value": "Functions.chooseElement"
+									}
+								},
+								{
+									"id": "set-at-xy",
+									"objectClass": "arrFieldGenerationList",
+									"sid": 800131697196813,
+									"parameters": {
+										"x": "Self.IndexOf(arrMainField.At(arrMainField.CurX-2, arrMainField.CurY))",
+										"y": "1",
+										"value": "1"
+									}
+								},
+								{
+									"id": "set-at-xy",
+									"objectClass": "arrFieldGenerationList",
+									"sid": 555627258065873,
+									"parameters": {
+										"x": "Self.IndexOf(arrMainField.At(arrMainField.CurX, arrMainField.CurY-2))",
+										"y": "1",
+										"value": "1"
+									}
+								}
+							],
+							"sid": 139775776197154
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "create-object",
+									"objectClass": "System",
+									"sid": 194396944736650,
+									"parameters": {
+										"object-to-create": "sElement",
+										"layer": "\"Elements\"",
+										"x": "tbGrid.X + 64 + (arrMainField.CurX * 128)",
+										"y": "tbGrid.Y + 64 + (arrMainField.CurY * 128)"
+									}
+								},
+								{
+									"id": "move-to-bottom",
+									"objectClass": "sElement",
+									"sid": 869353127510845
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "sElement",
+									"sid": 277032053184472,
+									"parameters": {
+										"instance-variable": "fieldX",
+										"value": "arrMainField.CurX"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "sElement",
+									"sid": 629771452641422,
+									"parameters": {
+										"instance-variable": "fieldY",
+										"value": "arrMainField.CurY"
+									}
+								},
+								{
+									"id": "set-instvar-value",
+									"objectClass": "sElement",
+									"sid": 916847205237920,
+									"parameters": {
+										"instance-variable": "elementTypeID",
+										"value": "arrMainField.CurValue"
+									}
+								},
+								{
+									"id": "set-animation",
+									"objectClass": "sElement",
+									"sid": 388655630689515,
+									"parameters": {
+										"animation": "Self.elementTypeID",
+										"from": "beginning"
+									}
+								},
+								{
+									"id": "set-at-xyz",
+									"objectClass": "arrMainField",
+									"sid": 894470305385705,
+									"parameters": {
+										"x": "arrMainField.CurX",
+										"y": "arrMainField.CurY",
+										"z": "1",
+										"value": "sElement.UID"
+									}
+								}
+							],
+							"sid": 971785650331480
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 489980302571984
+						}
+					],
+					"sid": 458059306881578
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [],
+					"sid": 113279477737265
+				}
+			]
+		},
+		{
+			"functionName": "chooseElement",
+			"functionDescription": "Выбирает подходящий элемент, учитывая забаненные в arrFieldGenerationList",
+			"functionCategory": "Field Array",
+			"functionReturnType": "string",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"type": "comment",
+					"text": "Выбирает подходящий элемент, учитывая забаненные в arrFieldGenerationList"
+				}
+			],
+			"sid": 634994033868937,
+			"children": [
+				{
+					"eventType": "variable",
+					"name": "randomElementListID",
+					"type": "number",
+					"initialValue": "0",
+					"comment": "",
+					"isStatic": false,
+					"isConstant": false,
+					"sid": 907709100965937
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 957834975221430,
+							"parameters": {
+								"variable": "randomElementListID",
+								"value": "floor(random(0,5))"
+							}
+						}
+					],
+					"sid": 937024195274505
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "while",
+							"objectClass": "System",
+							"sid": 443253501529802
+						},
+						{
+							"id": "compare-two-values",
+							"objectClass": "System",
+							"sid": 105067103828385,
+							"parameters": {
+								"first-value": "int(arrFieldGenerationList.At(randomElementListID, 1))",
+								"comparison": 0,
+								"second-value": "0"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 452226838098778,
+							"parameters": {
+								"variable": "randomElementListID",
+								"value": "floor(random(0,5))"
+							}
+						}
+					],
+					"sid": 622231378082288
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-at-xy",
+							"objectClass": "arrFieldGenerationList",
+							"sid": 227486982768638,
+							"parameters": {
+								"x": "randomElementListID",
+								"y": "1",
+								"comparison": 0,
+								"value": "1"
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-function-return-value",
+							"objectClass": "Functions",
+							"sid": 854120616981128,
+							"parameters": {
+								"value": "arrFieldGenerationList.At(randomElementListID,0)"
+							}
+						}
+					],
+					"sid": 905903966286492
+				}
+			]
+		},
+		{
+			"functionName": "generateNewFieldArray",
+			"functionDescription": "",
+			"functionCategory": "Field Array",
+			"functionReturnType": "none",
+			"functionIsAsync": false,
+			"functionParameters": [],
+			"eventType": "function-block",
+			"conditions": [],
+			"actions": [
+				{
+					"type": "comment",
+					"text": "Генерирует поле arrMainField без матчей, с использованием массива arrFieldGenerationList функции chooseElement.\nПо завершении вызывает respawnField"
+				},
+				{
+					"callFunction": "log",
+					"sid": 242607897866362,
+					"parameters": [
+						"\"Начата генерация поля\""
+					]
+				},
+				{
+					"callFunction": "clearFieldArray",
+					"sid": 431507647484297
+				}
+			],
+			"sid": 770357329267267,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "for-each-element",
+							"objectClass": "arrMainField",
+							"sid": 129271640601458,
+							"parameters": {
+								"axes": "xy"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 634405475698383,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 966121303427907,
+									"parameters": {
+										"first-value": "arrMainField.At(arrMainField.CurX-2, arrMainField.CurY)",
+										"comparison": 0,
+										"second-value": "arrMainField.At(arrMainField.CurX-1, arrMainField.CurY)"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-at-xyz",
+									"objectClass": "arrFieldGenerationList",
+									"sid": 374993819952387,
+									"parameters": {
+										"x": "Self.IndexOf(arrMainField.At(arrMainField.CurX-2, arrMainField.CurY))",
+										"y": "1",
+										"z": "0",
+										"value": "0"
+									}
+								}
+							],
+							"sid": 569172869708124
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 452007733088737,
+									"parameters": {
+										"first-value": "arrMainField.At(arrMainField.CurX, arrMainField.CurY-2)",
+										"comparison": 0,
+										"second-value": "arrMainField.At(arrMainField.CurX, arrMainField.CurY-1)"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-at-xyz",
+									"objectClass": "arrFieldGenerationList",
+									"sid": 392596366668803,
+									"parameters": {
+										"x": "Self.IndexOf(arrMainField.At(arrMainField.CurX, arrMainField.CurY-2))",
+										"y": "1",
+										"z": "0",
+										"value": "0"
+									}
+								}
+							],
+							"sid": 552474727041683
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-at-xyz",
+									"objectClass": "arrMainField",
+									"sid": 758114389070469,
+									"parameters": {
+										"x": "Self.CurX",
+										"y": "Self.CurY",
+										"z": "0",
+										"value": "Functions.chooseElement"
+									}
+								},
+								{
+									"id": "set-at-xy",
+									"objectClass": "arrFieldGenerationList",
+									"sid": 166627442139564,
+									"parameters": {
+										"x": "Self.IndexOf(arrMainField.At(arrMainField.CurX-2, arrMainField.CurY))",
+										"y": "1",
+										"value": "1"
+									}
+								},
+								{
+									"id": "set-at-xy",
+									"objectClass": "arrFieldGenerationList",
+									"sid": 653189360899185,
+									"parameters": {
+										"x": "Self.IndexOf(arrMainField.At(arrMainField.CurX, arrMainField.CurY-2))",
+										"y": "1",
+										"value": "1"
+									}
+								}
+							],
+							"sid": 116326536727398
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 263064378263516
+						},
+						{
+							"callFunction": "log",
+							"sid": 317478331395353,
+							"parameters": [
+								"\"Поле сгенерировано\""
+							]
+						},
+						{
+							"callFunction": "respawnField",
+							"sid": 600788578516928
+						}
+					],
+					"sid": 415501627793096
+				}
+			]
+		}
+	],
+	"sid": 345868396749566
+}

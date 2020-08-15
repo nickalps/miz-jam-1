@@ -1,0 +1,64 @@
+{
+	"name": "sPlayer",
+	"plugin-id": "Sprite",
+	"sid": 544371046905057,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 96,
+						"height": 112,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "C:\\Users\\Nick\\Desktop\\game-jam\\Hero.png",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 7000313,
+						"collisionPoly": {
+							"points": [
+								0.16363636363636364,
+								0.140625,
+								0.5,
+								0,
+								0.8272727272727273,
+								0.140625,
+								0.990909090909091,
+								0.5,
+								0.9090909090909091,
+								0.921875,
+								0.5,
+								0.421875,
+								0.08181818181818182,
+								0.921875,
+								0,
+								0.5
+							]
+						},
+						"useCollisionPoly": true,
+						"imagePoints": [
+							{
+								"name": "HP",
+								"x": 0.5,
+								"y": 0.288
+							}
+						],
+						"duration": 1
+					}
+				],
+				"sid": 527381248546775,
+				"name": "Animation 1",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			}
+		],
+		"subfolders": []
+	}
+}

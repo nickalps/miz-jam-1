@@ -1,0 +1,143 @@
+{
+	"name": "sStatic",
+	"plugin-id": "Sprite",
+	"sid": 748407964414496,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 176,
+						"height": 56,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "C:\\Users\\Nick\\Desktop\\game-jam\\progress bars\\ProgressBarFrame.png",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 4184012,
+						"collisionPoly": {
+							"points": [
+								0.2727272727272727,
+								0.8571428571428571,
+								0.5,
+								0,
+								0.7215909090909091,
+								0.8571428571428571,
+								0.9943181818181818,
+								0.5,
+								0.7215909090909091,
+								0.125,
+								0.5,
+								0.9821428571428571,
+								0.2727272727272727,
+								0.125,
+								0,
+								0.5
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 479020155383522,
+				"name": "ProgresBarFrame",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			},
+			{
+				"frames": [
+					{
+						"width": 112,
+						"height": 96,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "C:\\Users\\Nick\\Desktop\\game-jam\\Heart.png",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 8289939,
+						"collisionPoly": {
+							"points": [
+								0.2727272727272727,
+								0.8571428571428571,
+								0.5,
+								0,
+								0.7215909090909091,
+								0.8571428571428571,
+								0.9943181818181818,
+								0.5,
+								0.7215909090909091,
+								0.125,
+								0.5,
+								0.9821428571428571,
+								0.2727272727272727,
+								0.125,
+								0,
+								0.5
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 300053960934414,
+				"name": "Heart",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			},
+			{
+				"frames": [
+					{
+						"width": 48,
+						"height": 48,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "C:\\Users\\Nick\\Desktop\\game-jam\\Coin.png",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 5258181,
+						"collisionPoly": {
+							"points": [
+								0.2727272727272727,
+								0.8571428571428571,
+								0.5,
+								0,
+								0.7215909090909091,
+								0.8571428571428571,
+								0.9943181818181818,
+								0.5,
+								0.7215909090909091,
+								0.125,
+								0.5,
+								0.9821428571428571,
+								0.2727272727272727,
+								0.125,
+								0,
+								0.5
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 278931542765991,
+				"name": "Coin",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			}
+		],
+		"subfolders": []
+	}
+}

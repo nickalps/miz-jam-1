@@ -1,0 +1,259 @@
+{
+	"name": "sElement",
+	"plugin-id": "Sprite",
+	"sid": 747031436624526,
+	"isGlobal": false,
+	"instanceVariables": [
+		{
+			"name": "fieldX",
+			"type": "number",
+			"desc": "",
+			"sid": 298904794394581
+		},
+		{
+			"name": "fieldY",
+			"type": "number",
+			"desc": "",
+			"sid": 115910130384156
+		},
+		{
+			"name": "elementTypeID",
+			"type": "string",
+			"desc": "",
+			"sid": 905133893877374
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "MoveTo",
+			"name": "MoveTo",
+			"sid": 778433352863151
+		},
+		{
+			"behaviorId": "Sin",
+			"name": "Sine",
+			"sid": 554203070206826
+		}
+	],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 96,
+						"height": 96,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "C:\\Users\\Nick\\Desktop\\game-jam\\elements\\G.png",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 2768785,
+						"collisionPoly": {
+							"points": [
+								0.14666666666666667,
+								0.14666666666666667,
+								0.5,
+								0,
+								0.85,
+								0.14666666666666667,
+								0.9966666666666667,
+								0.5,
+								0.85,
+								0.85,
+								0.5,
+								0.9966666666666667,
+								0.14666666666666667,
+								0.85,
+								0,
+								0.5
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 232319725690855,
+				"name": "Green",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			},
+			{
+				"frames": [
+					{
+						"width": 96,
+						"height": 96,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "C:\\Users\\Nick\\Desktop\\game-jam\\elements\\Y.png",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 9122519,
+						"collisionPoly": {
+							"points": [
+								0.14666666666666667,
+								0.14666666666666667,
+								0.5,
+								0,
+								0.85,
+								0.14666666666666667,
+								0.9966666666666667,
+								0.5,
+								0.85,
+								0.85,
+								0.5,
+								0.9966666666666667,
+								0.14666666666666667,
+								0.85,
+								0,
+								0.5
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 973829637414158,
+				"name": "Yellow",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			},
+			{
+				"frames": [
+					{
+						"width": 96,
+						"height": 96,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "C:\\Users\\Nick\\Desktop\\game-jam\\elements\\R.png",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 80306,
+						"collisionPoly": {
+							"points": [
+								0.14666666666666667,
+								0.14666666666666667,
+								0.5,
+								0,
+								0.85,
+								0.14666666666666667,
+								0.9966666666666667,
+								0.5,
+								0.85,
+								0.85,
+								0.5,
+								0.9966666666666667,
+								0.14666666666666667,
+								0.85,
+								0,
+								0.5
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 531113175493665,
+				"name": "Red",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			},
+			{
+				"frames": [
+					{
+						"width": 96,
+						"height": 96,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "C:\\Users\\Nick\\Desktop\\game-jam\\elements\\B.png",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 3078391,
+						"collisionPoly": {
+							"points": [
+								0.14666666666666667,
+								0.14666666666666667,
+								0.5,
+								0,
+								0.85,
+								0.14666666666666667,
+								0.9966666666666667,
+								0.5,
+								0.85,
+								0.85,
+								0.5,
+								0.9966666666666667,
+								0.14666666666666667,
+								0.85,
+								0,
+								0.5
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 232268169036854,
+				"name": "Blue",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			},
+			{
+				"frames": [
+					{
+						"width": 96,
+						"height": 96,
+						"originX": 0.5,
+						"originY": 0.5,
+						"originalSource": "C:\\Users\\Nick\\Desktop\\game-jam\\elements\\P.png",
+						"exportFormat": "png",
+						"exportQuality": 0.8,
+						"imageSpriteId": 8897307,
+						"collisionPoly": {
+							"points": [
+								0.14666666666666667,
+								0.14666666666666667,
+								0.5,
+								0,
+								0.85,
+								0.14666666666666667,
+								0.9966666666666667,
+								0.5,
+								0.85,
+								0.85,
+								0.5,
+								0.9966666666666667,
+								0.14666666666666667,
+								0.85,
+								0,
+								0.5
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1
+					}
+				],
+				"sid": 773520567058681,
+				"name": "Purple",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			}
+		],
+		"subfolders": []
+	}
+}

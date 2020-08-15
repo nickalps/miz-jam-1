@@ -1,0 +1,315 @@
+{
+	"name": "ePlayerInput",
+	"events": [
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-nth-touch-end",
+					"objectClass": "Touch",
+					"sid": 823106451961695,
+					"parameters": {
+						"touch-number": "0"
+					}
+				},
+				{
+					"id": "compare-eventvar",
+					"objectClass": "System",
+					"sid": 228927419990152,
+					"parameters": {
+						"variable": "gameState",
+						"comparison": 0,
+						"value": "\"ready\""
+					}
+				},
+				{
+					"id": "is-touching-object",
+					"objectClass": "Touch",
+					"sid": 408940070100593,
+					"parameters": {
+						"object": "sElement"
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "setTouchState",
+					"sid": 763968935706317,
+					"parameters": [
+						"\"touchEnd\""
+					]
+				},
+				{
+					"callFunction": "log",
+					"sid": 756066266969795,
+					"parameters": [
+						"\"Перемещение 2 X: \"&sElement.fieldX & \" Y: \" & sElement.fieldY & \" type: \" & sElement.elementTypeID"
+					]
+				}
+			],
+			"sid": 484601949365165,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-at-xy",
+							"objectClass": "arrChangeSelection",
+							"sid": 471002267114823,
+							"parameters": {
+								"x": "1",
+								"y": "0",
+								"value": "sElement.fieldX"
+							}
+						},
+						{
+							"id": "set-at-xy",
+							"objectClass": "arrChangeSelection",
+							"sid": 968720834470662,
+							"parameters": {
+								"x": "1",
+								"y": "1",
+								"value": "sElement.fieldY"
+							}
+						},
+						{
+							"callFunction": "moveElementsAtArray",
+							"sid": 842284502635517
+						}
+					],
+					"sid": 298397668625884
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "setTouchState",
+							"sid": 277133957526031,
+							"parameters": [
+								"\"none\""
+							]
+						},
+						{
+							"id": "set-position",
+							"objectClass": "sSelectorFirst",
+							"sid": 217196362622276,
+							"parameters": {
+								"x": "-300",
+								"y": "-300"
+							}
+						},
+						{
+							"id": "set-position",
+							"objectClass": "sSelectorSecond",
+							"sid": 338615495210733,
+							"parameters": {
+								"x": "-300",
+								"y": "-300"
+							}
+						}
+					],
+					"sid": 111186403065176
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "is-in-touch",
+					"objectClass": "Touch",
+					"sid": 713492995265145,
+					"isInverted": true
+				},
+				{
+					"id": "trigger-once-while-true",
+					"objectClass": "System",
+					"sid": 373151878740602
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "setTouchState",
+					"sid": 987984316687762,
+					"parameters": [
+						"\"none\""
+					]
+				},
+				{
+					"id": "set-position",
+					"objectClass": "sSelectorFirst",
+					"sid": 960000690688756,
+					"parameters": {
+						"x": "-300",
+						"y": "-300"
+					}
+				},
+				{
+					"id": "set-position",
+					"objectClass": "sSelectorSecond",
+					"sid": 714136870564867,
+					"parameters": {
+						"x": "-300",
+						"y": "-300"
+					}
+				}
+			],
+			"sid": 673964501166281
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-touched-object",
+					"objectClass": "Touch",
+					"sid": 275581341297968,
+					"parameters": {
+						"object": "sElement"
+					}
+				},
+				{
+					"id": "compare-eventvar",
+					"objectClass": "System",
+					"sid": 688301495895688,
+					"parameters": {
+						"variable": "gameState",
+						"comparison": 0,
+						"value": "\"ready\""
+					}
+				}
+			],
+			"actions": [
+				{
+					"callFunction": "setTouchState",
+					"sid": 553854875016778,
+					"parameters": [
+						"\"touchStarted\""
+					]
+				},
+				{
+					"callFunction": "log",
+					"sid": 755304826071385,
+					"parameters": [
+						"\"Перемещение 1 X: \"&sElement.fieldX & \" Y: \" & sElement.fieldY & \" type: \" & sElement.elementTypeID"
+					]
+				},
+				{
+					"id": "set-position-to-another-object",
+					"objectClass": "sSelectorFirst",
+					"sid": 775037067583336,
+					"parameters": {
+						"object": "sElement",
+						"image-point-optional": "0"
+					}
+				}
+			],
+			"sid": 960897071942946,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "setTouchState",
+							"sid": 636162969473341,
+							"parameters": [
+								"\"inTouch\""
+							]
+						}
+					],
+					"sid": 955686756189347
+				},
+				{
+					"eventType": "block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-at-xy",
+							"objectClass": "arrChangeSelection",
+							"sid": 855169716703359,
+							"parameters": {
+								"x": "0",
+								"y": "0",
+								"value": "sElement.fieldX"
+							}
+						},
+						{
+							"id": "set-at-xy",
+							"objectClass": "arrChangeSelection",
+							"sid": 937112831848221,
+							"parameters": {
+								"x": "0",
+								"y": "1",
+								"value": "sElement.fieldY"
+							}
+						}
+					],
+					"sid": 539118200633688
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "is-on-screen",
+					"objectClass": "sSelectorFirst",
+					"sid": 626684710842785
+				},
+				{
+					"id": "is-touching-object",
+					"objectClass": "Touch",
+					"sid": 987500362643610,
+					"parameters": {
+						"object": "sElement"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 544474008728973,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-y",
+							"objectClass": "sSelectorFirst",
+							"sid": 798531164128744,
+							"parameters": {
+								"comparison": 0,
+								"y-co-ordinate": "sElement.Y"
+							},
+							"isInverted": true
+						},
+						{
+							"id": "compare-x",
+							"objectClass": "sSelectorFirst",
+							"sid": 870442496370941,
+							"parameters": {
+								"comparison": 0,
+								"x-co-ordinate": "sElement.X"
+							},
+							"isInverted": true
+						}
+					],
+					"actions": [
+						{
+							"id": "set-position-to-another-object",
+							"objectClass": "sSelectorSecond",
+							"sid": 863967033771161,
+							"parameters": {
+								"object": "sElement",
+								"image-point-optional": "0"
+							}
+						}
+					],
+					"sid": 636887686043778,
+					"isOrBlock": true
+				}
+			]
+		}
+	],
+	"sid": 374198773082699
+}
